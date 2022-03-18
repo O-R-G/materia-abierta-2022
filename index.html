@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Materia Abierta 2022</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="/static/css/main.css">
+		<!-- <script src="/static/js/global.js"></script> -->
+		<!-- <script src="/static/js/ui.js"></script> -->
+	</head>
+	<body>
+		<style>
+			body {
+				padding: 10px 60px 300px 60px;
+			}
+			body.is_night{
+				background-color: #000;
+				color: #fff;
+			}
+			.section-title
+			{
+				/*text-decoration: underline;*/
+				border-bottom: 1px solid;
+				margin-left: 60px;
+				margin-right: 60px;
+				/*display: inline-block;*/
+				margin-top: 5px;
+				white-space: nowrap;
+			}
+			body.is_night .section-content:hover
+			{
+				opacity: 1 !important;
+				color: #ff0;
+			}
+			body.is_day .section-content:hover
+			{
+				opacity: 1 !important;
+				color: #00f;
+			}
+			img
+			{
+				display: block;
+				width: 100%;
+			}
+			#badge
+			{
+				width: 240px;
+				position: fixed;
+				right: 60px;
+				bottom: 20px;
+				/*z-index: -1;*/
+			}
+
+		</style>
+		<p>Convocatoria Materia Abierta 2022 / The Rise of the Coyote</p>
+		<div id="content"></div>
+		<div id="badge"><img src="media/1280px-Huehuecoyotl.png"></div>
+		<script>
+			// console.log(window.location.search);
+			let searchParams = new URLSearchParams(window.location.search);
+			var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
+			var fullContent = '';
+			var filenames_all = {
+				'es':[
+					'Verano 2022',
+					'The Rise of the Coyote',
+					'Xochimilco y Milpa Alta',
+					'Aplicación',
+					'Calendario',
+					'Contacto',
+					'Costo',
+					'Créditos',
+					'Docentes',
+					'Participantes',
+					'Resumen curatorial',
+					'Semblanzas'
+				]
+			};
+			filenames = filenames_all[lang];
+			var loadedCount = 0;
+			var request_content = [];
+			var body = document.body;
+			var bodyClass = '';
+			var sContent = document.getElementById('content');
+			function shuffle(array) {
+				let currentIndex = array.length,  randomIndex;
+				// While there remain elements to shuffle...
+				while (currentIndex != 0) {
+					// Pick a remaining element...
+					randomIndex = Math.floor(Math.random() * currentIndex);
+					currentIndex--;
+					// And swap it with the current element.
+					[array[currentIndex], array[randomIndex]] = [
+						array[randomIndex], array[currentIndex]];
+				}
+				return array;
+			};
+			filenames = shuffle(filenames);
+			filenames.forEach((el, i) => {
+				request_content[i] = new XMLHttpRequest();
+				// let filename = el.substring(1, el.length - 2);
+				request_content[i].open('GET', 'content/'+lang+'/'+el+'.txt');
+				request_content[i].onreadystatechange = function() {
+					if(request_content[i].readyState == 4)
+					{
+						if (request_content[i].status === 200) { 
+							fullContent += '<span class="section-content"><span class="section-title">'+filenames[i] + '</span>' + request_content[i].responseText + '</span> ';
+							loadedCount++;
+							if(loadedCount == filenames.length)
+								sContent.innerHTML = fullContent;
+						}
+					}
+				}
+				request_content[i].send();
+			});
+
+			var request_weather = new XMLHttpRequest();
+			request_weather.onreadystatechange = function(){
+				if (request_weather.readyState === 4) {
+					if (request_weather.status === 200) { 
+						try{
+		                    // console.log(data);
+		                    // wind_mph
+		                    // wind_dir
+							var data= JSON.parse(request_weather.responseText)['current'];
+							console.log(data);
+							bodyClass += data['is_day'] == true ? 'is_day' : ' is_night';
+							console.log(bodyClass);
+							body.className = bodyClass;
+							console.log(data['cloud']);
+							sContent.style.opacity = 1 - (data['cloud'] / 100 / 2);
+						}
+						catch(err)
+						{
+							console.log('Error!');
+							console.log(err);
+							return false;
+						}
+					}
+				}
+			};
+			request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City');
+			request_weather.send();
+		</script>
+		
+	</body>
+
+</html>
