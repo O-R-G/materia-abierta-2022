@@ -8,78 +8,32 @@
 		<!-- <script src="/static/js/global.js"></script> -->
 		<!-- <script src="/static/js/ui.js"></script> -->
 	</head>
-	<body class="is_day">
+	<body>
 		<div id="background"></div>
-		<div>Convocatoria Materia Abierta 2022 / The Rise of the Coyote</div><br><br>
+		<div id="title" ><a href="index.html">Convocatoria Materia Abierta 2022 / The Rise of the Coyote</a></div><br><br>
 		<div id="content"></div>
-		<div id="badge"><img src="media/1280px-Huehuecoyotl.png"></div>
 		<script>
-			// console.log(window.location.search);
 			let searchParams = new URLSearchParams(window.location.search);
 			var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
-			var fullContent = '';
-			var match = [];
-			var filenames_all = {
-				'es':[
-					'Verano 2022',
-					'The Rise of the Coyote',
-					'Xochimilco y Milpa Alta',
-					'Aplicación',
-					'Calendario',
-					'Contacto',
-					'Costo',
-					'Créditos',
-					'Docentes',
-					'Participantes',
-					'Resumen curatorial',
-					'Semblanzas'
-				]
-			};
-			filenames = filenames_all[lang];
-			var loadedCount = 0;
-			var request_content = [];
-			var body = document.body;
-			var bodyClass = '';
+			var page = searchParams.get('page') !== null ? searchParams.get('page') : '404';
+			var synopsis_pattern = /\[synopsis\]\((.*?)\)/;
 			var sContent = document.getElementById('content');
 			var sBackground = document.getElementById('background');
-			var synopsis_pattern = /\[synopsis\]\((.*?)\)/;
-			function shuffle(array) {
-				let currentIndex = array.length,  randomIndex;
-				// While there remain elements to shuffle...
-				while (currentIndex != 0) {
-					// Pick a remaining element...
-					randomIndex = Math.floor(Math.random() * currentIndex);
-					currentIndex--;
-					// And swap it with the current element.
-					[array[currentIndex], array[randomIndex]] = [
-						array[randomIndex], array[currentIndex]];
-				}
-				return array;
-			};
-			filenames = shuffle(filenames);
-			filenames.forEach((el, i) => {
-				request_content[i] = new XMLHttpRequest();
-				// let filename = el.substring(1, el.length - 2);
-				request_content[i].open('GET', 'content/'+lang+'/'+el+'.txt');
-				request_content[i].onreadystatechange = function() {
-					if(request_content[i].readyState == 4)
-					{
-						if (request_content[i].status === 200) {
-							// let r = new RegExp(synopsis_pattern);
-							let match = request_content[i].responseText.match(synopsis_pattern);
-							let url = 'subpage.html?lang='+lang+'&page='+el;
-							if(match && match.length > 1)
-							{
-								fullContent += '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span> ';
-							}
-							loadedCount++;
-								if(loadedCount == filenames.length)
-									sContent.innerHTML = fullContent;
-						}
+			var body = document.body;
+			var bodyClass = '';
+
+			var request_page = new XMLHttpRequest();
+			request_page.open('GET', 'content/'+lang+'/'+page+'.txt');
+			request_page.onreadystatechange = function() {
+				if(request_page.readyState == 4)
+				{
+					if (request_page.status === 200) {
+						// let r = new RegExp(synopsis_pattern);
+						sContent.innerHTML = request_page.responseText.replace(synopsis_pattern, '');
 					}
 				}
-				request_content[i].send();
-			});
+			}
+			request_page.send();
 
 			var request_weather = new XMLHttpRequest();
 			request_weather.onreadystatechange = function(){
@@ -90,11 +44,6 @@
 		                    // wind_mph
 		                    // wind_dir
 							var data= JSON.parse(request_weather.responseText)['current'];
-							console.log(data);
-							// bodyClass += data['is_day'] == true ? 'is_day' : ' is_night';
-							// console.log(bodyClass);
-							// body.className = bodyClass;
-							// sContent.style.opacity = 1 - (data['cloud'] / 100 / 2);
 							let cloud = data['cloud'] > 99 ? 99 : data['cloud'];
 							cloud = '40';
 							console.log(cloud);
@@ -117,7 +66,6 @@
 								console.log(hue);
 								r.style.setProperty('--text-color', 'hsl('+hue+', 20%, 50%)');
 							}
-							
 						}
 						catch(err)
 						{
@@ -131,7 +79,5 @@
 			request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City');
 			request_weather.send();
 		</script>
-		
 	</body>
-
 </html>
