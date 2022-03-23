@@ -10,9 +10,21 @@
 	</head>
 	<body class="is_day">
 		<div id="background"></div>
-		<div>Convocatoria Materia Abierta 2022 / The Rise of the Coyote</div><br><br>
-		<div id="content"></div>
+		<span><a id='title' href='/'>Materia Abierta</a> / </span><br><br><br>
+        <span id='intro'>
+            <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
+identified by 
+a common domain name (<a href='/'>www.materiaabierta.com</a>)
+and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
+ 
+<b>Right now, it is 24° C with some clouds here.</b>
+
+        </span>
+		<span id="content"></span>
 		<div id="badge"><img src="media/1280px-Huehuecoyotl.png"></div>
+<span id='outro'>    
+<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
+</span>
 		<script>
 			// console.log(window.location.search);
 			let searchParams = new URLSearchParams(window.location.search);
@@ -131,7 +143,5 @@
 			request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City');
 			request_weather.send();
 		</script>
-		
 	</body>
-
 </html>
