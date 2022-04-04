@@ -14,20 +14,20 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
 body {
 	padding: 10px 60px 300px 60px;
     font-size: 21px;
-    background-color: #f07636;
+    background-color: #F07636;
     color: #07FE92;
 }
 
 a:link {
-	color: #00F; 
+    color: #00F;
 }
 
 a:visited {
-	color: #FFF; 
+    color: #f07636;
 }
 
 a:hover {
-	background-color: #00F;
+    background-color: #00F;
 	color: #FFF; 
 }
 
