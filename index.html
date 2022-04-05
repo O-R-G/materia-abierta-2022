@@ -5,19 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="/static/css/main.css">
-	<!-- <script src="/static/js/global.js"></script> -->
-	<!-- <script src="/static/js/ui.js"></script> -->
 </head>
-<body class="is_day">
-	<div id="background"></div>
+<body>
 	<span><a id='title' href='/'>Materia Abierta</a> / </span><br><br><br>
     <span id='intro'>
         <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
-identified by 
-a common domain name (<a href='/'>www.materiaabierta.com</a>)
-and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
+identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
 
-<b>Right now, it is 24° C with some clouds here.</b>
+<b>Right now, it is <span id="temp">24</span>° C with some clouds here.</b>
 
     </span>
 	<span id="content"></span>
@@ -54,6 +49,7 @@ and published on a web server. This webserver is a computer situated in <a href=
 	var bodyClass = '';
 	var sContent = document.getElementById('content');
 	var sBackground = document.getElementById('background');
+	var r = document.querySelector(':root');
 	// var synopsis_pattern = /\[synopsis\]\((.*?)\)/;
 	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
 	function shuffle(array) {
@@ -80,7 +76,6 @@ and published on a web server. This webserver is a computer situated in <a href=
 				if (request_content[i].status === 200) {
 					// let r = new RegExp(synopsis_pattern);
 					let match = request_content[i].responseText.match(synopsis_pattern);
-					console.log(match);
 					// let url = 'subpage.html?lang='+lang+'&page='+el;
 					let url = lang + '/' + el + '.html';
 					if(match && match.length > 1)
@@ -96,55 +91,8 @@ and published on a web server. This webserver is a computer situated in <a href=
 		request_content[i].send();
 	});
 
-	var request_weather = new XMLHttpRequest();
-	request_weather.onreadystatechange = function(){
-		if (request_weather.readyState === 4) {
-			if (request_weather.status === 200) { 
-				try{
-                    // console.log(data);
-                    // wind_mph
-                    // wind_dir
-					var data= JSON.parse(request_weather.responseText)['current'];
-					console.log(data);
-					// bodyClass += data['is_day'] == true ? 'is_day' : ' is_night';
-					// console.log(bodyClass);
-					// body.className = bodyClass;
-					// sContent.style.opacity = 1 - (data['cloud'] / 100 / 2);
-					let cloud = data['cloud'] > 99 ? 99 : data['cloud'];
-					cloud = '40';
-					console.log(cloud);
-					if(cloud != 0)
-					{
-						let cloud_percent = 50 - cloud / 2;
-						// cloud_percent = 20;
-						let deg = typeof data['wind_degree'] == 'undefined' ? 180 : data['wind_degree'];
-						let gradient = 'linear-gradient('+deg+'deg, blue '+cloud_percent+'%, white '+((50 - cloud_percent) / 2 + cloud_percent)+'%, white '+(100 - ((50 - cloud_percent) / 2 + cloud_percent))+'%, blue '+(100 - cloud_percent)+'%)';
-						sBackground.style.backgroundImage = gradient;
-					}
-					if(typeof data['temp_f'] != 'undefined')
-					{
-						let temp = data['temp_f'];
-						let temp_max = 76;
-						let temp_min = 38;
-						// let hue =  (parseInt((temp - 38) / (76 - 38) * 360) + 180) % 360;
-						let hue =  (parseInt((temp - 38) / (76 - 38) * 360) + 180) % 360;
-						var r = document.querySelector(':root');
-						console.log(hue);
-						r.style.setProperty('--text-color', 'hsl('+hue+', 20%, 50%)');
-					}
-					
-				}
-				catch(err)
-				{
-					console.log('Error!');
-					console.log(err);
-					return false;
-				}
-			}
-		}
-	};
-	request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City');
-	request_weather.send();
+
 </script>
+<script src="/static/js/weather.js"></script>
 </body>
 </html>

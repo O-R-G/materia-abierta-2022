@@ -10,30 +10,39 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
 	border: 0;
 	vertical-align: top; 
 }
-
+::root
+{
+	/*--background-color: #F07636;*/
+    /*--text-color: #07FE92;*/
+}
 body {
 	padding: 10px 60px 300px 60px;
     font-size: 21px;
-    background-color: #F07636;
-    color: #07FE92;
+    /*background-color: #F07636;*/
+    /*color: #07FE92;*/
+    color: var(--text-color);
+    background-color: var(--background-color);
 }
 
 a:link {
-    color: #00F;
+    /*color: #00F;*/
+    color: var(--highlight-color);
 }
 
 a:visited {
-    color: #f07636;
+    color: var(--background-color);
 }
 
-a:hover {
-    background-color: #00F;
+.is_day a:hover,
+.is_day a:active {
+    background-color: var(--highlight-color);
 	color: #FFF; 
 }
 
-a:active {
-	background-color: #00F;
-	color: #FFF; 
+.is_night a:hover,
+.is_night a:active {
+    background-color: var(--highlight-color);
+	color: var(--background-color);
 }
 
 form, input {
@@ -44,33 +53,25 @@ form, input {
 
 /* ids */
 
-#title {
-	color: #00F; 
+
+#title:link {
+	color: var(--highlight-color);
+	text-decoration: none; 
+}
+
+#title:visited {
+	color: var(--highlight-color);
+	/*text-decoration: none; */
 }
 
 #title:hover {
-	color: #FFF; 
-	background-color: #00F; 
+	color: var(--background-color); 
+	background-color: var(--highlight-color); 
 }
 
-#title a:link {
-	color: #00F;
-	text-decoration: none; 
-}
-
-#title a:visited {
-	color: #00F;
-	text-decoration: none; 
-}
-
-#title a:hover {
-	color: #FFF; 
-	background-color: #00F; 
-}
-
-#title a:active {
-	color: #FFF; 
-	background-color: #00F; 
+#title:active {
+	color: var(--background-color); 
+	background-color: var(--highlight-color);
 }
 
 #badge {
