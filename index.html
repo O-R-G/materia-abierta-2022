@@ -8,19 +8,19 @@
 </head>
 <body>
 	<div id="background"></div>
-	<span><a id='title' href='/'>Materia Abierta</a> / <span class="sans">Right now, it is 24° C with some clouds here.</span></span><br><br><br>
-    <span id='intro'>
-        <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
-identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
-
-<b>Right now, it is <span id="temp">24</span>° C with some clouds here.</b>
-
-    </span>
-	<span id="content"></span>
+	<header><a id='title' href='/'>Materia Abierta</a> / <span class="sans">Right now, it is 24° C with some clouds here.</span></header><br><br><br>
+    <div id="right">
+    	<div id='intro'>
+	        <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
+	identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>
+	    </div>
+		<div id="content"></div>
+		<div id='outro'>    
+			<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
+		</div>
+	</div>
 	<div id="badge"><img src="media/server.jpg"></div>
-<span id='outro'>    
-<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
-</span>
+
 <div id="menu-container">
 	<div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
 	<div id="menu">
@@ -36,6 +36,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	}
 	let sMenu = document.getElementById('menu');
 	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
+	var isTest = searchParams.get('test') !== null;
 	var fullContent = '';
 	var match = [];
 	var filenames_all = {
@@ -86,33 +87,38 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		}
 		return array;
 	};
-	filenames = shuffle(filenames);
-	filenames.forEach((el, i) => {
-		request_content[i] = new XMLHttpRequest();
-		// let filename = el.substring(1, el.length - 2);
-		request_content[i].open('GET', lang+'/'+el+'.html');
-		request_content[i].onreadystatechange = function() {
-			if(request_content[i].readyState == 4)
-			{
-				if (request_content[i].status === 200) {
-					// let r = new RegExp(synopsis_pattern);
-					let match = request_content[i].responseText.match(synopsis_pattern);
-					// let url = 'subpage.html?lang='+lang+'&page='+el;
-					let url = lang + '/' + el + '.html';
-					if(match && match.length > 1)
-					{
-						fullContent += '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span> ';
+	if(isTest)
+	{
+		sContent.innerHTML = '<span class="section-content"><a class="section-title" href="es/Docentes.html">Docentes</a> Paula Gaetano Adi, Laboratorio Lacustre, Michael Marder, Chakanetsa Mavhunga, Pedro Neves Marques. . .</span> <span class="section-content"><a class="section-title" href="es/Calendario.html">Calendario</a> A lo largo de cuatro semanas, la edición del 2022 está configurada en <b><i>distintas temporalidades para abordar los temas propuestos con la urgencia que este momento histórico</i></b> solicita, pero buscando no demandar demasiado tiempo frente a la pantalla a las personas que participan.</span> <span class="section-content"><a class="section-title" href="es/Verano 2022.html">Verano 2022</a> <i>Materia Abierta</i> se reconfigura cada año respondiendo a temáticas relevantes y ejercitando distintos modelos educativos. El programa del 2022 explorará la necesidad de sobrepasar la representación del mundo que ha generado el paradigma tecnocientífico, <b>proponiendo un retorno a la tierra a través de la figura de huehuecoyotl</b> y la exploración del sur profundo de la Ciudad de México.</span> <span class="section-content"><a class="section-title" href="es/Créditos.html">Créditos</a> Federico Pérez Villoro, Fundador y director; Sara Garzón, Curadora de la edición 2022; Ana Rivera, Coordinadora de participación . . .</span> <span class="section-content"><a class="section-title" href="es/Semblanzas.html">Semblanzas</a> Curadora invitad, Paula Gaetano Adi, Laboratorio Lacustre . . .</span> <span class="section-content"><a class="section-title" href="es/Contacto.html">Contacto</a> Email, Instagram, Twitter</span> <span class="section-content"><a class="section-title" href="es/The Rise of the Coyote.html">The Rise of the Coyote</a> Bajo el título <i>The Rise of the Coyote</i>, el programa de <i>Materia Abierta 2022</i> es curado por Sara Garzón y se llevará a cabo en la Ciudad de México del 25 de julio al 22 de agosto de 2021.</span> <span class="section-content"><a class="section-title" href="es/Participantes.html">Participantes</a> <i>Materia Abierta</i> invita a aplicar a artistas, autores e investigadoras de cualquier disciplina y parte del mundo. No es requisito tener un grado académico previo para participar. Se seleccionará a un grupo de veinticinco personas para participar a través de la convocatoria abierta. Un número limitado de espacios serán otorgados de manera directa por medio de invitaciones institucionales. La intención es formar un grupo diverso, crítico y políticamente activo de participantes que busquen interrogar los sistemas hegemónicos a través de los cuales se producen la cultura y los conocimientos dominantes.</span> <span class="section-content"><a class="section-title" href="es/Aplicación.html">Aplicación</a> <i>La convocatoria estará abierta hasta 13 de julio de 2022.</i> Se deberá llenar el siguiente formulario en donde, entre otras preguntas, se solicitará . . .</span> <span class="section-content"><a class="section-title" href="es/Costo.html">Costo</a> <i>Materia Abierta</i> es un proyecto sin fines de lucro. Conforme se consiguen apoyos económicos externos, el costo de participación por persona disminuye. El monto actual es de $1,500 dólares, lo cual cubre todas las actividades pero no incluye el hospedaje, transporte y otros gastos personales. El programa ofrecerá un número limitado de becas parciales para candidatas y candidatos de México y para personas con bajos recursos económicos.</span> <span class="section-content"><a class="section-title" href="es/Xochimilco y Milpa Alta.html">Xochimilco y Milpa Alta</a> La edición 2022 del programa estará enfocada en la zona periférica del sur de la Ciudad de México. Se desarrollará con el motivo de estudiar y aprender desde las delegaciones <i>de Milpa Alta y Xochimilco y en específico desde los alrededores del Teuhtli</i>, un volcán que sirve como referente identitario para las diversas comunidades que habitan sus faldas y como un límite geográfico natural que demarca la frontera entre ambas delegaciones.</span> ';
+	}
+	else
+	{
+		filenames = shuffle(filenames);
+		filenames.forEach((el, i) => {
+			request_content[i] = new XMLHttpRequest();
+			// let filename = el.substring(1, el.length - 2);
+			request_content[i].open('GET', lang+'/'+el+'.html');
+			request_content[i].onreadystatechange = function() {
+				if(request_content[i].readyState == 4)
+				{
+					if (request_content[i].status === 200) {
+						// let r = new RegExp(synopsis_pattern);
+						let match = request_content[i].responseText.match(synopsis_pattern);
+						// let url = 'subpage.html?lang='+lang+'&page='+el;
+						let url = lang + '/' + el + '.html';
+						if(match && match.length > 1)
+						{
+							fullContent += '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span> ';
+						}
+						loadedCount++;
+							if(loadedCount == filenames.length)
+								sContent.innerHTML = fullContent;
 					}
-					loadedCount++;
-						if(loadedCount == filenames.length)
-							sContent.innerHTML = fullContent;
 				}
 			}
-		}
-		request_content[i].send();
-	});
-
-
+			request_content[i].send();
+		});
+	}
 </script>
 <script src="/static/js/weather.js"></script>
 </body>

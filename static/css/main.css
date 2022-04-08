@@ -21,7 +21,7 @@ body {
     /*background-color: #F07636;*/
     /*color: #07FE92;*/
     color: var(--text-color);
-    /*background-color: var(--background-color);*/
+    background-color: var(--background-color);
 }
 
 a:link {
@@ -76,11 +76,21 @@ form, input {
 
 #badge {
     position: fixed;
-    right: 40px;
-    bottom: 20px;
-    width: 220px;
+    left: 25%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    height: 25vw;
+    background-image: url('/media/server-color.jpg');
+    z-index: 100;
 }
-
+header
+{
+	position: fixed;
+	top: 20px;
+	left: 40px;
+	z-index: 1000;
+}
 img {
     display: block;
     width: 100%;
@@ -259,16 +269,17 @@ img {
 }
 #background{
 	position: fixed;
-	width: 100vw;
-	max-width: 100%;
+	width: 50vw;
+	max-width: 50%;
 	height: 100vh;
 	top: 0;
 	left: 0;
-	background-image: url('/media/sky-color.jpg');
+	background-image: url('/media/sky-2.jpg');
+	/*background-image: url('/media/sky-color.jpg');*/
 	/*background-color: var(--background-color);*/
 	/*background-blend-mode: multiply;*/
 	background-size: cover;
-	z-index: -1;
+	z-index: 10;
 }
 #geolocation
 {
@@ -314,4 +325,13 @@ img {
 {
 	width: 100vw;
 	height: 100vh;
+}
+#right
+{
+	position: absolute;
+	width: 50%;
+	right: 0;
+	/*padding-left: 50%;*/
+	padding-right: 60px;
+	box-sizing: border-box;
 }
