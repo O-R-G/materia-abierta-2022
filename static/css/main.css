@@ -16,7 +16,7 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
     /*--text-color: #07FE92;*/
 }
 body {
-	padding: 10px 60px 300px 60px;
+	padding: 10px 120px 300px 120px;
     font-size: 21px;
     /*background-color: #F07636;*/
     /*color: #07FE92;*/
@@ -265,6 +265,8 @@ img {
 	top: 0;
 	left: 0;
 	background-image: url('/media/sky-color.jpg');
+	/*background-color: var(--background-color);*/
+	/*background-blend-mode: multiply;*/
 	background-size: cover;
 	z-index: -1;
 }
@@ -301,6 +303,8 @@ img {
 	position: absolute;
 	left: 40px;
 	bottom: 20px;
+	cursor: pointer;
+	color: var(--highlight-color);
 }
 .viewing-menu #menu
 {

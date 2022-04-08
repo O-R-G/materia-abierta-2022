@@ -28,12 +28,13 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 </div>
 <div id="geolocation" class="sans">14Q 497564.17806281 2122128.6424549</div>
 <script>
-	// console.log(window.location.search);
+	let searchParams = new URLSearchParams(window.location.search);
+	var sketch_version = searchParams.get('sketch') !== null ? searchParams.get('sketch') : 0;
+	document.body.setAttribute('sketch', sketch_version);
 	function toggleMenu(){
 		document.body.classList.toggle('viewing-menu');
 	}
 	let sMenu = document.getElementById('menu');
-	let searchParams = new URLSearchParams(window.location.search);
 	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
 	var fullContent = '';
 	var match = [];
