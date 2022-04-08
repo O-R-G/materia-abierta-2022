@@ -92,7 +92,7 @@ header
 {
 	position: fixed;
 	top: 20px;
-	left: 40px;
+	left: 20px;
 	z-index: 1000;
 }
 img {
@@ -290,10 +290,12 @@ img {
 	font-weight: bold;
 	font-size: 16px;
 	position: fixed;
-	right: 40px;
+	/*right: 40px;*/
+	left: 20px;
 	/*top: 50%;*/
-	top: 20px;
-	/*transform: translate(50%, -50%) rotate(-90deg);*/
+	bottom: 20px;
+	transform-origin: left top;
+	transform: translate(0, 100%) rotate(-90deg);
 	z-index: 1000;
 }
 #menu-container
@@ -373,7 +375,10 @@ img {
 }
 #server
 {
-
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	width: 200px;
 }
 #clock:focus,
 canvas:focus
