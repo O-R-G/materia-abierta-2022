@@ -5,20 +5,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="/static/css/main.css">
+	<script src="/static/pde/processing-1.4.1.min.js"></script>
 </head>
 <body>
+	<header><a id='title' href='/'>Materia Abierta</a> / <span class="sans">Right now, it is 24° C with some clouds here.</span></header>
 	<div id="background"></div>
-	<header><a id='title' href='/'>Materia Abierta</a> / <span class="sans">Right now, it is 24° C with some clouds here.</span></header><br><br><br>
-    <div id="right">
-    	<div id='intro'>
-	        <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
-	identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>
-	    </div>
-		<div id="content"></div>
-		<div id='outro'>    
-			<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
+	<div id="main-container">
+		<div id="server">
+			<img src="media/server.jpg">
+		</div>
+		<div id="left" class="main-section">
+			<img src="media/vlcsnap-2022-03-16-15h59m08s851.png">
+			<img src="media/vlcsnap-2022-03-16-15h59m27s826.png">
+			<img src="media/vlcsnap-2022-03-16-15h59m32s935.png">
+			<img src="media/vlcsnap-2022-03-16-15h59m52s219.png">
+			<img src="media/vlcsnap-2022-03-16-16h01m05s187.png">
+		</div><div id="right" class="main-section">
+	    	<span id='intro'>
+		        <i>This is a website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
+		identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>
+		    </span>
+			<span id="content"></span>
+			<span id='outro'>    
+				<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
+			</span>
 		</div>
 	</div>
+    
 	<div id="badge"><img src="media/server.jpg"></div>
 
 <div id="menu-container">
@@ -26,6 +39,15 @@
 	<div id="menu">
 	</div>
 </div>
+<div id='clock'>
+    <canvas class='clock' datasrc="static/pde/clock.pde"
+        width="200" height="200" tabindex="0"
+        style="image-rendering: optimizeQuality !important;">
+    </canvas>
+</div>
+<script>
+    var sizer = 200;
+</script>
 <div id="geolocation" class="sans">14Q 497564.17806281 2122128.6424549</div>
 <script>
 	let searchParams = new URLSearchParams(window.location.search);

@@ -9,6 +9,7 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
 	empty-cells: show;
 	border: 0;
 	vertical-align: top; 
+	margin:0
 }
 ::root
 {
@@ -16,12 +17,14 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
     /*--text-color: #07FE92;*/
 }
 body {
-	padding: 10px 120px 300px 120px;
+	/*padding-bottom: 300px;*/
     font-size: 21px;
     /*background-color: #F07636;*/
     /*color: #07FE92;*/
     color: var(--text-color);
-    background-color: var(--background-color);
+    /*background-color: var(--background-color);*/
+    /*background-image: url('/media/sky-2.jpg');*/
+    /*background-size: cover;*/
 }
 
 a:link {
@@ -83,6 +86,7 @@ form, input {
     height: 25vw;
     background-image: url('/media/server-color.jpg');
     z-index: 100;
+    display: none;
 }
 header
 {
@@ -269,8 +273,8 @@ img {
 }
 #background{
 	position: fixed;
-	width: 50vw;
-	max-width: 50%;
+	width: 100vw;
+	max-width: 100%;
 	height: 100vh;
 	top: 0;
 	left: 0;
@@ -279,16 +283,18 @@ img {
 	/*background-color: var(--background-color);*/
 	/*background-blend-mode: multiply;*/
 	background-size: cover;
-	z-index: 10;
+	z-index: 10;	
 }
 #geolocation
 {
 	font-weight: bold;
 	font-size: 16px;
 	position: fixed;
-	right: 20px;
-	top: 50%;
-	transform: translate(50%, -50%) rotate(-90deg);
+	right: 40px;
+	/*top: 50%;*/
+	top: 20px;
+	/*transform: translate(50%, -50%) rotate(-90deg);*/
+	z-index: 1000;
 }
 #menu-container
 {
@@ -326,12 +332,51 @@ img {
 	width: 100vw;
 	height: 100vh;
 }
-#right
+#main-container
 {
-	position: absolute;
-	width: 50%;
-	right: 0;
-	/*padding-left: 50%;*/
-	padding-right: 60px;
+	position: relative;
+	z-index: 100;
+	padding: 100vh 120px 100vh 120px;
 	box-sizing: border-box;
+}
+.main-section
+{
+	/*display: inline-block;*/
+	/*width: 50%;*/
+	display: block;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+#left
+{
+	display: none;
+}
+#left img
+{
+	float: right;
+	clear: both;
+}
+#clock {
+    position: fixed;
+    /*bottom: 0;
+    right: 10px;*/
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    cursor: pointer;
+    font-family: menlo, monospace;
+    font-size: 14px;
+    line-height: 16px;
+    z-index: 50;
+    left: 100;
+}
+#server
+{
+
+}
+#clock:focus,
+canvas:focus
+{
+    outline: none;
 }
