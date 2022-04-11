@@ -84,7 +84,15 @@ form, input {
     overflow: hidden;
     transition: opacity .5s;
 }
-
+#clock
+{
+	position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 220px;
+    opacity: 0;
+    pointer-events: none;
+}
 img {
     display: block;
     width: 100%;
@@ -342,6 +350,10 @@ body[loadingstage="0"] #outro
 {
 	opacity: 0;
 	pointer-events: none;
+}
+body[loadingstage="0"] #clock
+{
+	opacity: 1;
 }
 body[loadingstage="1"] #menu-container,
 body[loadingstage="1"] #content,
