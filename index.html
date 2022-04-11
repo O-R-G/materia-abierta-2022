@@ -6,15 +6,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body>
+<body loadingStage = "0">
 	<div id="background"></div>
-	<span><a id='title' href='/'>Materia Abierta</a> / <span class="sans">Currently 24° C with some clouds</span></span><br><br><br>
+	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans"></span></span><br><br><br>
     <span id='intro'>
         <i>This is the website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
 identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
     </span>
 	<span id="content"></span> 
-	<!-- <div id="badge"><img src="media/server.jpg"></div> -->
+	<div id="badge"><img src="media/server.jpg"></div>
 <span id='outro'>
 <i>The world wide web was designed as a two-way medium, hosts and clients.</i>
 </span>
@@ -23,16 +23,12 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	<div id="menu">
 	</div>
 </div>
-<div id="geolocation" class="sans">41°24'12.2"N 2°10'26.5"E</div>
+<div id="geolocation" class="sans"></div>
 <script>
-	// console.log(window.location.search);
-	function toggleMenu(){
-		document.body.classList.toggle('viewing-menu');
-	}
-	let sMenu = document.getElementById('menu');
 	let searchParams = new URLSearchParams(window.location.search);
 	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
 	var fullContent = '';
+	var slicedContent = {};
 	var match = [];
 	var filenames_all = {
 		'es':[
@@ -51,6 +47,59 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		]
 	};
 	filenames = filenames_all[lang];
+	var string_weather = 'Currently 24° C with some clouds';
+	var string_geolocation = '1°24\'12.2"N 2°10\'26.5"E';
+	var sWeather = document.getElementById('weather');
+	var sGeolocation = document.getElementById('geolocation');
+	var fadeInDuration = 500;
+	var stageDelay = 1000;
+	function nextStage(){
+		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
+		setTimeout(function(){
+			if(currentStage == 0)
+			{
+				document.body.setAttribute('loadingStage', currentStage +1);
+				setTimeout(function(){
+					typewriter(string_geolocation, sGeolocation, 50, nextStage);
+				}, fadeInDuration);
+				
+			}
+			else if(currentStage == 1)
+			{
+				if(loadedCount == filenames.length)
+					document.body.setAttribute('loadingStage', currentStage +1);
+				else
+					setTimeout(fnextStage, 500);
+			}
+		}, stageDelay);
+		
+		
+	}
+	function typewriter(content, target, interval=500, callback=false){
+		let content_arr = content.split('');
+		// console.log(content_arr);
+		let index = 0;
+		let thisInterval = setInterval(function(){
+			if(content_arr[index] == ' ')
+				target.innerHTML += '&nbsp;';
+			else
+				target.innerHTML += content_arr[index];
+			index++;
+			if(index == content_arr.length){
+				clearInterval(thisInterval);
+				if(callback)
+					callback();
+			}
+		}, interval);
+	}
+	
+	typewriter(string_weather, sWeather, 50, nextStage);
+	// console.log(window.location.search);
+	function toggleMenu(){
+		document.body.classList.toggle('viewing-menu');
+	}
+	let sMenu = document.getElementById('menu');
+	
 	filenames.forEach((el, i) => {
 		let menuItem = document.createElement('DIV');
 		menuItem.classList = 'menu-item sans';
@@ -60,6 +109,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		menuItem.appendChild(menuItemLink);
 		sMenu.appendChild(menuItem);
 	});
+
 	var loadedCount = 0;
 	var request_content = [];
 	var body = document.body;
@@ -69,21 +119,8 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	var r = document.querySelector(':root');
 	// var synopsis_pattern = /\[synopsis\]\((.*?)\)/;
 	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
-	function shuffle(array) {
-		let currentIndex = array.length,  randomIndex;
-		// While there remain elements to shuffle...
-		while (currentIndex != 0) {
-			// Pick a remaining element...
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-			// And swap it with the current element.
-			[array[currentIndex], array[randomIndex]] = [
-				array[randomIndex], array[currentIndex]];
-		}
-		return array;
-	};
-	filenames = shuffle(filenames);
 	filenames.forEach((el, i) => {
+		// console.log('el = '+el);
 		request_content[i] = new XMLHttpRequest();
 		// let filename = el.substring(1, el.length - 2);
 		request_content[i].open('GET', lang+'/'+el+'.html');
@@ -97,18 +134,24 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 					let url = lang + '/' + el + '.html';
 					if(match && match.length > 1)
 					{
-						fullContent += '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span> ';
+						slicedContent[el] = '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span>&nbsp;';
 					}
 					loadedCount++;
-						if(loadedCount == filenames.length)
-							sContent.innerHTML = fullContent;
+					if(loadedCount == filenames.length){
+						filenames.forEach(function(elemt, j){
+							// console.log('elemt = '+elemt);
+							// console.log(slicedContent[elemt]);
+							fullContent += slicedContent[elemt];
+						});
+						sContent.innerHTML = fullContent;
+					}
 				}
 			}
 		}
 		request_content[i].send();
 	});
 
-
+	
 </script>
 <script src="/static/js/weather.js"></script>
 </body>

@@ -1,4 +1,4 @@
-console.log('weather');
+// console.log('weather');
 var body = document.body;
 var bodyClass = '';
 var r = document.querySelector(':root');
