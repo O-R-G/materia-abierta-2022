@@ -31,36 +31,24 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 </div>
 <div id="geolocation" class="sans">Connecting . . .</div>
 <script src="/static/js/weather.js"></script>
+<script src="/static/js/general.js"></script>
 <script>
-	let searchParams = new URLSearchParams(window.location.search);
-	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
+	
 	var fullContent = '';
 	var slicedContent = {};
 	var match = [];
-	var filenames_all = {
-		'es':[
-			'Verano 2022',
-			'The Rise of the Coyote',
-			'Xochimilco y Milpa Alta',
-			'Aplicación',
-			'Calendario',
-			'Contacto',
-			'Costo',
-			'Créditos',
-			'Docentes',
-			'Participantes',
-			'Resumen curatorial',
-			'Semblanzas'
-		]
-	};
-	filenames = filenames_all[lang];
 	
 	var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
 	var sWeather = document.getElementById('weather');
 	var sGeolocation = document.getElementById('geolocation');
 	var fadeInDuration = 500;
 	var stageDelay = 1000;
-	var sizer = 220;
+	if(window.innerWidth > 500)
+		var sizer = 220;
+	else
+		var sizer = 140;
+
+	
 	function nextStage(){
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
 		// console.log('nextStage, current stage = '+currentStage);
@@ -80,9 +68,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 				else
 					setTimeout(nextStage, 500);
 			}
-		}, stageDelay);
-		
-		
+		}, stageDelay);		
 	}
 	function typewriter(content, target, interval=500, callback=false){
 		if(content.length != 0){
@@ -114,25 +100,23 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	
 	// typewriter(string_weather, sWeather, 200, nextStage);
 	// console.log(window.location.search);
-	function toggleMenu(){
-		document.body.classList.toggle('viewing-menu');
-	}
-	let sMenu = document.getElementById('menu');
 	
-	filenames.forEach((el, i) => {
-		let menuItem = document.createElement('DIV');
-		menuItem.classList = 'menu-item sans';
-		let menuItemLink = document.createElement('A');
-		menuItemLink.innerText = el;
-		menuItemLink.href = '/' + lang + '/' + el + '.html';
-		menuItem.appendChild(menuItemLink);
-		sMenu.appendChild(menuItem);
-	});
+	// let sMenu = document.getElementById('menu');
+	// makeMenu(sMenu, filenames);
+	// filenames.forEach((el, i) => {
+	// 	let menuItem = document.createElement('DIV');
+	// 	menuItem.classList = 'menu-item sans';
+	// 	let menuItemLink = document.createElement('A');
+	// 	menuItemLink.innerText = el;
+	// 	menuItemLink.href = '/' + lang + '/' + el + '.html';
+	// 	menuItem.appendChild(menuItemLink);
+	// 	sMenu.appendChild(menuItem);
+	// });
 
 	var loadedCount = 0;
 	var request_content = [];
-	var body = document.body;
-	var bodyClass = '';
+	// var body = document.body;
+	// var bodyClass = '';
 	var sContent = document.getElementById('content');
 	var sBackground = document.getElementById('background');
 	var r = document.querySelector(':root');

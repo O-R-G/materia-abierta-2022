@@ -41,8 +41,14 @@
 		Ryan Diaz<br>
 		Diseño de materiales gráficos adicionales
 	</span>
+	<div id="menu-container">
+        <div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
+        <div id="menu">
+        </div>
+    </div>
 	<div id="badge"><img src="/media/server.jpg"></div>
-	<script src="/static/js/weather.js"></script>
+    <script src="/static/js/weather.js"></script>
+    <script src="/static/js/general.js"></script>
     <script>
         request_weather.send();
     </script>

@@ -29,7 +29,7 @@ request_static_weather.onreadystatechange = function(){
 		}
 	}
 };
-request_static_weather.open('GET', 'static/txt/weather.txt');
+request_static_weather.open('GET', '/static/txt/weather.txt');
 
 request_weather.onreadystatechange = function(){
 	if (request_weather.readyState === 4) {

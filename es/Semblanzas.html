@@ -52,8 +52,14 @@
 
 		Calpulli Tecalco A.C es una organización constituida para la investigación y preservación del patrimonio cultural y natural de las culturas indígenas. De manera especial, nuestro trabajo busca preservar y  revitalizar el conocimiento tradicional que los pueblos indígenas del sur de la Cuenca de Anáhuac han realizado  en su interacción con el medio ambiente, posibilitando reservas naturales y sistemas agrícolas altamente sustentables y que hoy en día se encuentran en peligro de perderse.
 	</span>
-    <div id="badge"><img src="/media/server.jpg"></div>
-	<script src="/static/js/weather.js"></script>
+    <div id="menu-container">
+        <div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
+        <div id="menu">
+        </div>
+    </div>
+	<div id="badge"><img src="/media/server.jpg"></div>
+    <script src="/static/js/weather.js"></script>
+    <script src="/static/js/general.js"></script>
     <script>
         request_weather.send();
     </script>
