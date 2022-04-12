@@ -12,19 +12,19 @@ request_static_weather.onreadystatechange = function(){
                 if(request_static_weather.responseText)
                 	string_weather = request_static_weather.responseText;
                 if(typeof typewriter === 'function')
-					typewriter(string_weather, sWeather, 200, nextStage);
+					typewriter(string_weather, sWeather, 100, nextStage);
 				else
 				{
 					window.addEventListener('load', function(){
 						if(typeof typewriter === 'function')
-							typewriter(string_weather, sWeather, 200, nextStage);
+							typewriter(string_weather, sWeather, 100, nextStage);
 						else
 							console.log('no typewriter');
 					});
 				}
 			}
 			catch(err){
-				typewriter(string_weather, sWeather, 200, nextStage);
+				typewriter(string_weather, sWeather, 100, nextStage);
 			}
 		}
 	}
@@ -101,12 +101,12 @@ request_weather.onreadystatechange = function(){
 				}
 
 				if(typeof typewriter === 'function')
-					typewriter(string_weather, sWeather, 200, nextStage);
+					typewriter(string_weather, sWeather, 100, nextStage);
 				else
 				{
 					window.addEventListener('load', function(){
 						if(typeof typewriter === 'function')
-							typewriter(string_weather, sWeather, 200, nextStage);
+							typewriter(string_weather, sWeather, 100, nextStage);
 
 					});
 				}
