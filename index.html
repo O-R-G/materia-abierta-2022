@@ -8,6 +8,7 @@
 	<script src="static/pde/processing-1.4.1.min.js"></script>
 </head>
 <body loadingStage = "0">
+	
 	<div id="background"></div>
 	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
     <span id='intro'>
@@ -15,7 +16,7 @@
 identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
     </span>
 	<span id="content"></span> 
-	<div id="badge"><img src="media/server.jpg"></div>
+	<div id="badge"><img src="/media/server.jpg"></div>
 	<div id='clock'><canvas class='clock' datasrc="/static/pde/clock.pde"
         width="200" height="200" tabindex="0"
         style="image-rendering: optimizeQuality !important;">
@@ -29,6 +30,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	</div>
 </div>
 <div id="geolocation" class="sans">Connecting . . .</div>
+<script src="/static/js/weather.js"></script>
 <script>
 	let searchParams = new URLSearchParams(window.location.search);
 	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
@@ -52,8 +54,8 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		]
 	};
 	filenames = filenames_all[lang];
-	var string_weather = 'Currently 24° C with some clouds';
-	var string_geolocation = '1°24\'12.2"N 2°10\'26.5"E';
+	
+	var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
 	var sWeather = document.getElementById('weather');
 	var sGeolocation = document.getElementById('geolocation');
 	var fadeInDuration = 500;
@@ -61,6 +63,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	var sizer = 220;
 	function nextStage(){
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
+		// console.log('nextStage, current stage = '+currentStage);
 		setTimeout(function(){
 			if(currentStage == 0)
 			{
@@ -75,32 +78,41 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 				if(loadedCount == filenames.length)
 					document.body.setAttribute('loadingStage', currentStage +1);
 				else
-					setTimeout(fnextStage, 500);
+					setTimeout(nextStage, 500);
 			}
 		}, stageDelay);
 		
 		
 	}
 	function typewriter(content, target, interval=500, callback=false){
-		let content_arr = content.split('');
+		if(content.length != 0){
+			let content_arr = content.split('');
+			let index = 0;
+			target.innerHTML = '';
+			let thisInterval = setInterval(function(){
+				if(content_arr[index] == ' ')
+					target.innerHTML += '&nbsp;';
+				else
+					target.innerHTML += content_arr[index];
+				index++;
+				if(index == content_arr.length){
+					clearInterval(thisInterval);
+					if(callback)
+						callback();
+				}
+			}, interval);
+		}
+		else{
+			target.innerHTML = '';
+			if(callback)
+				callback();
+		}
+
 		// console.log(content_arr);
-		let index = 0;
-		target.innerHTML = '';
-		let thisInterval = setInterval(function(){
-			if(content_arr[index] == ' ')
-				target.innerHTML += '&nbsp;';
-			else
-				target.innerHTML += content_arr[index];
-			index++;
-			if(index == content_arr.length){
-				clearInterval(thisInterval);
-				if(callback)
-					callback();
-			}
-		}, interval);
+		
 	}
 	
-	typewriter(string_weather, sWeather, 200, nextStage);
+	// typewriter(string_weather, sWeather, 200, nextStage);
 	// console.log(window.location.search);
 	function toggleMenu(){
 		document.body.classList.toggle('viewing-menu');
@@ -157,9 +169,8 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		}
 		request_content[i].send();
 	});
-
+	request_weather.send();
 	
 </script>
-<script src="/static/js/weather.js"></script>
 </body>
 </html>

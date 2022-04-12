@@ -97,7 +97,12 @@ img {
     display: block;
     width: 100%;
 }
-
+#content img
+{
+	border-radius: 20px;
+	max-width: 600px;
+	margin: 0 auto;
+}
 
 /* classes */
 
@@ -343,7 +348,7 @@ img {
 /* loading sequences  */
 body[loadingstage="0"] #menu-container,
 body[loadingstage="0"] #badge,
-body[loadingstage="0"] #geolocation,
+/*body[loadingstage="0"] #geolocation,*/
 body[loadingstage="0"] #content,
 body[loadingstage="0"] #intro,
 body[loadingstage="0"] #outro
