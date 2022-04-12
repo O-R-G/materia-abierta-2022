@@ -23,8 +23,7 @@ request_static_weather.onreadystatechange = function(){
 					});
 				}
 			}
-			catch(err)
-			{
+			catch(err){
 				typewriter(string_weather, sWeather, 200, nextStage);
 			}
 		}
@@ -112,8 +111,9 @@ request_weather.onreadystatechange = function(){
 					});
 				}
 			}
-			catch(err)
+			catch(err){
 				request_static_weather.send();
+			}
 		}
 		else
 		{
