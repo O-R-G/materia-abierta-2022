@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Materia Abierta 2022</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body class="is_day">
+    <div id="background"></div>
+    <span><a id='title' href='/'>Materia Abierta</a> / Calendar</span><br><br><br>
+    <span id="content">
+        <!-- begin of editable content -->
+        
+        <span  class="subpage-synopsis">The 2022 edition will be an intensive study program over four weeks. The daily schedule will vary as needed to address the proposed topics with the urgency that this historical moment requires, but there will also be time for reflection, rest, and socializing . . .</span>
+
+		The 2022 edition will be an intensive study program over four weeks. The daily schedule will vary as needed to address the proposed topics with the urgency that this historical moment requires, but there will also be time for reflection, rest, and socializing. 
+        <br><br>
+        Activities will include reading seminars, public lectures, and group discussions as well as fieldwork in the Milpa Alta and Xochimilco territories, and hands-on workshops — for example, a community mechatronics workshop and another on food sovereignty based on the cultivation of the milpa. Curricular activities will take place on Monday and Wednesday mornings and Thursday afternoons; Tuesdays and Saturdays will be dedicated to field visits, and Fridays and Sundays will be days off. These times are subject to change based on logistical rearrangements.
+
+        <!-- end of editable content -->
+	</span>
+    <div id="menu-container">
+        <div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
+        <div id="menu">
+        </div>
+    </div>
+    <div id="badge"><img src="/media/server.jpg"></div>
+    <script src="/static/js/weather.js"></script>
+    <script src="/static/js/general.js"></script>
+    <script>
+        request_weather.send();
+    </script>
+</body>
+</html>

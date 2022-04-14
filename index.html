@@ -8,7 +8,6 @@
 	<script src="static/pde/processing-1.4.1.min.js"></script>
 </head>
 <body loadingStage = "0">
-	
 	<div id="background"></div>
 	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
     <span id='intro'>
@@ -30,6 +29,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	</div>
 </div>
 <div id="geolocation" class="sans">Connecting . . .</div>
+<div id="lang-toggle" class="sans"><a href="/">ES</a> / <a href="/?lang=en">EN</a></div>
 <script src="/static/js/weather.js"></script>
 <script src="/static/js/general.js"></script>
 <script>
@@ -37,7 +37,6 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	var fullContent = '';
 	var slicedContent = {};
 	var match = [];
-	
 	var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
 	var sWeather = document.getElementById('weather');
 	var sGeolocation = document.getElementById('geolocation');
@@ -47,11 +46,9 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		var sizer = 220;
 	else
 		var sizer = 140;
-
 	
 	function nextStage(){
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
-		// console.log('nextStage, current stage = '+currentStage);
 		setTimeout(function(){
 			if(currentStage == 0)
 			{
@@ -93,47 +90,22 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 			if(callback)
 				callback();
 		}
-
-		// console.log(content_arr);
-		
 	}
-	
-	// typewriter(string_weather, sWeather, 200, nextStage);
-	// console.log(window.location.search);
-	
-	// let sMenu = document.getElementById('menu');
-	// makeMenu(sMenu, filenames);
-	// filenames.forEach((el, i) => {
-	// 	let menuItem = document.createElement('DIV');
-	// 	menuItem.classList = 'menu-item sans';
-	// 	let menuItemLink = document.createElement('A');
-	// 	menuItemLink.innerText = el;
-	// 	menuItemLink.href = '/' + lang + '/' + el + '.html';
-	// 	menuItem.appendChild(menuItemLink);
-	// 	sMenu.appendChild(menuItem);
-	// });
 
 	var loadedCount = 0;
 	var request_content = [];
-	// var body = document.body;
-	// var bodyClass = '';
 	var sContent = document.getElementById('content');
 	var sBackground = document.getElementById('background');
 	var r = document.querySelector(':root');
-	// var synopsis_pattern = /\[synopsis\]\((.*?)\)/;
 	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
 	filenames.forEach((el, i) => {
-		// console.log('el = '+el);
 		request_content[i] = new XMLHttpRequest();
-		// let filename = el.substring(1, el.length - 2);
 		request_content[i].open('GET', lang+'/'+el+'.html');
 		request_content[i].onreadystatechange = function() {
 			if(request_content[i].readyState == 4)
 			{
 				if (request_content[i].status === 200) {
-					// let r = new RegExp(synopsis_pattern);
 					let match = request_content[i].responseText.match(synopsis_pattern);
-					// let url = 'subpage.html?lang='+lang+'&page='+el;
 					let url = lang + '/' + el + '.html';
 					if(match && match.length > 1)
 					{
@@ -142,8 +114,6 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 					loadedCount++;
 					if(loadedCount == filenames.length){
 						filenames.forEach(function(elemt, j){
-							// console.log('elemt = '+elemt);
-							// console.log(slicedContent[elemt]);
 							fullContent += slicedContent[elemt];
 						});
 						sContent.innerHTML = fullContent;
@@ -154,7 +124,6 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 		request_content[i].send();
 	});
 	request_weather.send();
-	
 </script>
 </body>
 </html>

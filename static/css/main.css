@@ -365,6 +365,14 @@ body[loadingstage="1"] #outro
 	pointer-events: none;
 }
 
+#lang-toggle
+{
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1000;
+}
+
 @media screen and (max-width: 500px)
 {   
 	body {

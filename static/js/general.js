@@ -1,20 +1,37 @@
 // lang
 let searchParams = new URLSearchParams(window.location.search);
 var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
+console.log(lang);
 var filenames_all = {
 	'es':[
-		'Verano 2022',
-		'The Rise of the Coyote',
-		'Xochimilco y Milpa Alta',
-		'Aplicación',
-		'Calendario',
-		'Contacto',
-		'Costo',
-		'Créditos',
-		'Docentes',
-		'Participantes',
-		'Resumen curatorial',
-		'Semblanzas'
+		'convocatoria 2022',
+		'la rebelión del coyote',
+		'milpa alta y xochimilco',
+		'resumen curatorial',
+		'programa',
+		'docentes',
+		'participantes',
+		'costo',
+		'calendario',
+		'aplicación',
+		'créditos',
+		'contacto',
+		'semblanzas'
+	],
+	'en':[
+		'open call 2022',
+		'the rise of the coyote',
+		'milpa alta and xochimilco',
+		'curatorial text',
+		'program',
+		'tutors',
+		'participants',
+		'cost',
+		'calendar',
+		'application',
+		'credits',
+		'contact',
+		'bios'
 	]
 };
 var filenames = filenames_all[lang];
