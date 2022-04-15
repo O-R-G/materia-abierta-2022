@@ -391,6 +391,11 @@ body[loadingstage="1"] #content-container
 	right: 20px;
 	z-index: 1000;
 }
+
+body[loadingstage="0"] #live-background
+{
+	z-index: 1000;
+}
 #live-background
 {
 	position: fixed;
@@ -410,6 +415,7 @@ body[loadingstage="1"] #content-container
 	transform: translate(-50%, -50%);
 	/*pointer-events: none;*/
 }
+
 #consent-container
 {
 	position: fixed;
