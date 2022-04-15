@@ -434,6 +434,7 @@ body[loadingstage="0"] #live-background
 	z-index: 1001;
 	display: none;
 	pointer-events: none;
+	background-color: ;
 }
 
 body[loadingstage="0"] #consent-container

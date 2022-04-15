@@ -41,11 +41,11 @@ function onPlayerStateChange(event) {
 	}
 }
 var msg_liveConsent = {
-	'es': '(es)Materia Abierta would like to play a live stream at the background. Please click the play button to continue.',
-	'en': 'Materia Abierta would like to play a live stream at the background. Please click the play button to continue.'
+	'es': '(es)Materia Abierta would like to play a live stream at the background.<br>Please click the play button to continue.',
+	'en': 'Materia Abierta would like to play a live stream at the background.<br>Please click the play button to continue.'
 };
 var sConsent_msg = document.getElementById('consent-msg');
-sConsent_msg.innerText = msg_liveConsent[lang];
+sConsent_msg.innerHTML = msg_liveConsent[lang];
 function centerLiveFeed(){
 	let sPlayer = document.getElementById('player');
 	let sLive_background = document.getElementById('live-background');
