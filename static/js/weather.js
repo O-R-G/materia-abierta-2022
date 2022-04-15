@@ -100,8 +100,9 @@ request_weather.onreadystatechange = function(){
 					string_weather += data['condition']['text'];
 				}
 
-				if(typeof typewriter === 'function')
-					typewriter(string_weather, sWeather, 100, nextStage);
+				if(typeof typewriter === 'function'){
+					// typewriter(string_weather, sWeather, 100, nextStage);
+				}
 				else
 				{
 					window.addEventListener('load', function(){
