@@ -27,6 +27,7 @@ player = new YT.Player('player', {
   }
 });
 }
+
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
 	event.target.playVideo();
@@ -34,7 +35,7 @@ function onPlayerReady(event) {
 var played = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING && !played) {
-		console.log('video init');
+		player.mute();
 		nextStage();
 	  	played = true;
 	}
