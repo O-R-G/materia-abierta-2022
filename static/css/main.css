@@ -406,6 +406,7 @@ body[loadingstage="1"] #content-container
 body[loadingstage="0"] #live-background
 {
 	z-index: 1000;
+	pointer-events: auto;
 }
 #live-background
 {
@@ -417,6 +418,7 @@ body[loadingstage="0"] #live-background
 	max-width: 100%;
 	height: 100vh;
 	overflow: hidden;
+	pointer-events: none;
 }
 #live-background > iframe
 {
@@ -424,7 +426,6 @@ body[loadingstage="0"] #live-background
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	/*pointer-events: none;*/
 }
 
 #consent-container
