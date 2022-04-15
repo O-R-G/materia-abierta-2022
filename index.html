@@ -9,6 +9,9 @@
 </head>
 <body loadingStage = "0">
 	<div id="background"></div>
+	<div id="live-background">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/MEP5EN7baKc?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
 	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
 	<div id="content-container">
 	    <span id='intro'>
@@ -35,6 +38,7 @@
 <div id="lang-toggle" class="sans"><a href="/">ES</a> / <a href="/?lang=en">EN</a></div>
 <script src="/static/js/weather.js"></script>
 <script src="/static/js/general.js"></script>
+<script src="/static/js/liveStream.js"></script>
 <script>
 	
 	var fullContent = '';
@@ -94,7 +98,6 @@
 				callback();
 		}
 	}
-
 	var loadedCount = 0;
 	var request_content = [];
 	var sContent = document.getElementById('content');
@@ -126,7 +129,9 @@
 		request_content[i].open('GET', url);
 		request_content[i].send();
 	});
+
 	request_weather.send();
+	
 </script>
 </body>
 </html>
