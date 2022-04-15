@@ -408,6 +408,7 @@ body[loadingstage="1"] #content-container
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	pointer-events: none;
 }
 @media screen and (max-width: 500px)
 {   
