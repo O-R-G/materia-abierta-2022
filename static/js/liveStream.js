@@ -8,17 +8,19 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
+var player_w = 640;
+var player_h = 360;
+video_ratio = player_h / player_w;
 function onYouTubeIframeAPIReady() {
 player = new YT.Player('player', {
-  height: '390',
-  width: '640',
+  height: player_h,
+  width: player_w,
   videoId: 'MEP5EN7baKc',
   playerVars: {
-    'playsinline': 1
-    // 'autoplay': 1
+    'playsinline': 1,
+    'muted': 1
   },
   events: {
-
     'onStateChange': onPlayerStateChange
   }
 });
@@ -27,10 +29,12 @@ player = new YT.Player('player', {
 function onPlayerReady(event) {
 	event.target.playVideo();
 }
+var played = false;
 function onPlayerStateChange(event) {
-	console.log('onPlayerStateChange');
-	if (event.data == YT.PlayerState.PLAYING) {
-	  typewriter(string_weather, sWeather, 100, nextStage);
+	if (event.data == YT.PlayerState.PLAYING && !played) {
+		console.log('video init');
+		nextStage();
+	  	played = true;
 	}
 }
 var msg_liveConsent = {
@@ -41,7 +45,6 @@ var sConsent_msg = document.getElementById('consent-msg');
 sConsent_msg.innerText = msg_liveConsent[lang];
 function centerLiveFeed(){
 	let sPlayer = document.getElementById('player');
-	let video_ratio = sPlayer.height / sPlayer.width;
 	let wW = window.innerWidth;
 	let wH = window.innerHeight;
 	let screen_ratio = wH / wW;

@@ -366,14 +366,25 @@ body[loadingstage="0"] #outro
 	opacity: 0;
 	pointer-events: none;
 }
-body[loadingstage="0"] #clock
-{
-	opacity: 1;
-}
 body[loadingstage="1"] #menu-container,
+body[loadingstage="1"] #badge,
+/*body[loadingstage="0"] #geolocation,*/
 body[loadingstage="1"] #content,
 body[loadingstage="1"] #intro,
 body[loadingstage="1"] #outro
+{
+	opacity: 0;
+	pointer-events: none;
+}
+body[loadingstage="0"] #clock,
+body[loadingstage="1"] #clock
+{
+	opacity: 1;
+}
+body[loadingstage="2"] #menu-container,
+body[loadingstage="2"] #content,
+body[loadingstage="2"] #intro,
+body[loadingstage="2"] #outro
 {
 	opacity: 0;
 	pointer-events: none;
@@ -419,11 +430,14 @@ body[loadingstage="0"] #live-background
 #consent-container
 {
 	position: fixed;
-	z-index: 1000;
-}
-#consent_msg
-{
+	z-index: 1001;
+	display: none;
 	pointer-events: none;
+}
+
+body[loadingstage="0"] #consent-container
+{
+	display: block;
 }
 @media screen and (max-width: 500px)
 {   

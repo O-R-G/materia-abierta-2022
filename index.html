@@ -61,23 +61,31 @@
 	
 	function nextStage(){
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
-		setTimeout(function(){
-			if(currentStage == 0)
-			{
-				document.body.setAttribute('loadingStage', currentStage +1);
-				setTimeout(function(){
-					typewriter(string_geolocation, sGeolocation, 100, nextStage);
-				}, fadeInDuration);
-				
-			}
-			else if(currentStage == 1)
-			{
-				if(loadedCount == filenames.length)
+		if(currentStage == 0){
+			document.body.setAttribute('loadingStage', currentStage +1);
+			typewriter(string_weather, sWeather, 100, nextStage);
+		}
+		else
+		{
+			setTimeout(function(){
+				if(currentStage == 1)
+				{
 					document.body.setAttribute('loadingStage', currentStage +1);
-				else
-					setTimeout(nextStage, 500);
-			}
-		}, stageDelay);		
+					setTimeout(function(){
+						typewriter(string_geolocation, sGeolocation, 100, nextStage);
+					}, fadeInDuration);
+					
+				}
+				else if(currentStage == 2)
+				{
+					if(loadedCount == filenames.length)
+						document.body.setAttribute('loadingStage', currentStage +1);
+					else
+						setTimeout(nextStage, 500);
+				}
+			}, stageDelay);		
+		}
+		
 	}
 	function typewriter(content, target, interval=500, callback=false){
 		if(content.length != 0){
