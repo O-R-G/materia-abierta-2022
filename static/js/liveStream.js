@@ -10,6 +10,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
 var player_w = 640;
 var player_h = 360;
+var wW = window.innerWidth;
+var wH = window.innerHeight;
 video_ratio = player_h / player_w;
 function onYouTubeIframeAPIReady() {
 player = new YT.Player('player', {
@@ -46,8 +48,10 @@ sConsent_msg.innerText = msg_liveConsent[lang];
 function centerLiveFeed(){
 	let sPlayer = document.getElementById('player');
 	let sLive_background = document.getElementById('live-background');
-	let wW = window.innerWidth;
-	let wH = window.innerHeight > sLive_background.offsetHeight ? window.innerHeight : sLive_background.offsetHeight;
+	wW = window.innerWidth;
+	wH = window.innerHeight;
+	if(sLive_background.offsetHeight > wH)
+		wH = sLive_background.offsetHeight;
 	let screen_ratio = wH / wW;
 	if(video_ratio < screen_ratio)
 	{
