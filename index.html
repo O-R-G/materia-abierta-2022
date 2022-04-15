@@ -10,19 +10,22 @@
 <body loadingStage = "0">
 	<div id="background"></div>
 	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
-    <span id='intro'>
-        <i>This is the website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
-identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
-    </span>
-	<span id="content"></span> 
+	<div id="content-container">
+	    <span id='intro'>
+	        <i>This is the website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
+	identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and published on a web server. This webserver is a computer situated in <a href='/media/San_pedro_atocpan.gif'>Milpa Alta, Ciudad de México</a>.</i>    
+	    </span>
+		<span id="content"></span> 
+		<span id='outro'>
+			<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
+		</span>
+	</div>
 	<div id="badge"><img src="/media/server.jpg"></div>
 	<div id='clock'><canvas class='clock' datasrc="/static/pde/clock.pde"
         width="200" height="200" tabindex="0"
         style="image-rendering: optimizeQuality !important;">
     </canvas></div>
-<span id='outro'>
-<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
-</span>
+
 <div id="menu-container">
 	<div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
 	<div id="menu">
@@ -99,17 +102,16 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 	var r = document.querySelector(':root');
 	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
 	filenames.forEach((el, i) => {
+		let url = lang + '/' + el.toLowerCase() + '.html';
 		request_content[i] = new XMLHttpRequest();
-		request_content[i].open('GET', lang+'/'+el+'.html');
 		request_content[i].onreadystatechange = function() {
 			if(request_content[i].readyState == 4)
 			{
 				if (request_content[i].status === 200) {
 					let match = request_content[i].responseText.match(synopsis_pattern);
-					let url = lang + '/' + el + '.html';
 					if(match && match.length > 1)
 					{
-						slicedContent[el] = '<span class="section-content"><a class="section-title" href="'+url+'">'+filenames[i] + '</a> ' + match[1] + '</span>&nbsp;';
+						slicedContent[el] = '<span class="section-content"><a class="section-title" href="'+url+'">' + el + '</a> ' + match[1] + '</span>&nbsp;';
 					}
 					loadedCount++;
 					if(loadedCount == filenames.length){
@@ -121,6 +123,7 @@ identified by  a common domain name (<a href='/'>www.materiaabierta.com</a>) and
 				}
 			}
 		}
+		request_content[i].open('GET', url);
 		request_content[i].send();
 	});
 	request_weather.send();

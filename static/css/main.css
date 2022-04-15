@@ -93,6 +93,27 @@ form, input {
     opacity: 0;
     pointer-events: none;
 }
+
+#background {
+	position: fixed;
+	width: 100vw;
+	max-width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-image: url('/media/sky-2.jpg');
+	background-size: cover;
+	z-index: -1;
+}
+
+#geolocation {
+	position: fixed;
+	right: 20px;
+	top: 50%;
+	transform: translate(50%, -50%) rotate(-90deg);
+	transition: opacity .15s;
+}
+
 img {
     display: block;
     width: 100%;
@@ -273,25 +294,7 @@ img {
     text-transform: uppercase;
 }
 
-#background {
-	position: fixed;
-	width: 100vw;
-	max-width: 100%;
-	height: 100vh;
-	top: 0;
-	left: 0;
-	background-image: url('/media/sky-2.jpg');
-	background-size: cover;
-	z-index: -1;
-}
-
-#geolocation {
-	position: fixed;
-	right: 20px;
-	top: 50%;
-	transform: translate(50%, -50%) rotate(-90deg);
-	transition: opacity .15s;
-}
+/* menu */
 
 #menu-container {
 	position: fixed;
@@ -300,6 +303,10 @@ img {
 	left: 0;
 	background-color: #fff;
 	transition: opacity .5s;
+}
+
+.is_night #menu-container {
+	background-color: #000;
 }
 
 #menu {
@@ -331,6 +338,12 @@ img {
 	width: 100vw;
 	height: 100vh;
 }
+.menu-item + .menu-item
+{
+	margin-top: 17px;
+}
+
+/* transition */
 #intro {
 	transition: opacity .5s;
 }
@@ -364,7 +377,12 @@ body[loadingstage="1"] #outro
 	opacity: 0;
 	pointer-events: none;
 }
-
+body[loadingstage="0"] #content-container,
+body[loadingstage="1"] #content-container
+{
+	height: 0;
+	overflow: hidden;
+}
 #lang-toggle
 {
 	position: fixed;
