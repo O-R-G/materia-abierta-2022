@@ -410,6 +410,15 @@ body[loadingstage="1"] #content-container
 	transform: translate(-50%, -50%);
 	/*pointer-events: none;*/
 }
+#consent-container
+{
+	position: fixed;
+	z-index: 1000;
+}
+#consent_msg
+{
+	pointer-events: none;
+}
 @media screen and (max-width: 500px)
 {   
 	body {
