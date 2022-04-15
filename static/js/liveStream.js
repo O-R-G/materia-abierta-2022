@@ -45,8 +45,9 @@ var sConsent_msg = document.getElementById('consent-msg');
 sConsent_msg.innerText = msg_liveConsent[lang];
 function centerLiveFeed(){
 	let sPlayer = document.getElementById('player');
+	let sLive_background = document.getElementById('live-background');
 	let wW = window.innerWidth;
-	let wH = window.innerHeight;
+	let wH = window.innerHeight > sLive_background.offsetHeight ? window.innerHeight : sLive_background.offsetHeight;
 	let screen_ratio = wH / wW;
 	if(video_ratio < screen_ratio)
 	{
