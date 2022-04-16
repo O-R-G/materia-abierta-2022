@@ -127,7 +127,8 @@
 
 	var fadeInDuration = 500;
 	var stageDelay = 1000;
-	var typewriterInterval = isTest ? 10 : 100;
+	var typingInterval = isTest ? 10 : 100;
+	var typewriterIntervalObj = null;
 	if(window.innerWidth > 500)
 		var sizer = 220;
 	else
@@ -151,7 +152,7 @@
 					window.history.pushState({"html":homeContent_full, "lang":lang, "page":page},"", '/?lang='+lang);
 					setTimeout(function(){
             			sContent_container.classList.remove('transition');
-            			typewriter(string_weather, sWeather, typewriterInterval);
+            			typewriter(string_weather, sWeather, typingInterval);
             		}, 0);
 				}
 				else
@@ -180,7 +181,7 @@
 										window.history.pushState({"html":homeContent_full, "lang":lang, "page":page},"", '/?lang='+lang);
 										setTimeout(function(){
 					            			sContent_container.classList.remove('transition');
-					            			typewriter(string_weather, sWeather, typewriterInterval);
+					            			typewriter(string_weather, sWeather, typingInterval);
 					            		}, 0);
 									}
 								}
@@ -210,7 +211,7 @@
 			                		window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
 			                		setTimeout(function(){
 			                			sContent_container.classList.remove('transition');
-			                			typewriter(target, sWeather, typewriterInterval);
+			                			typewriter(target, sWeather, typingInterval);
 			                			document.body.classList.add('subpage');
 			                		}, 0);
 			                	}
@@ -234,9 +235,9 @@
 		if(currentStage == 0){
 			document.body.setAttribute('loadingStage', currentStage +1);
 			if(page === 'home')
-				typewriter(string_weather, sWeather, typewriterInterval, nextStage);
+				typewriter(string_weather, sWeather, typingInterval, nextStage);
 			else
-				typewriter(page, sWeather, typewriterInterval, nextStage);
+				typewriter(page, sWeather, typingInterval, nextStage);
 		}
 		else
 		{
@@ -245,7 +246,7 @@
 				{
 					document.body.setAttribute('loadingStage', currentStage +1);
 					setTimeout(function(){
-						typewriter(string_geolocation, sGeolocation, typewriterInterval, nextStage);
+						typewriter(string_geolocation, sGeolocation, typingInterval, nextStage);
 					}, fadeInDuration);
 					
 				}
@@ -262,17 +263,22 @@
 	}
 	function typewriter(content, target, interval=100, callback=false){
 		if(content.length != 0){
+			if(typewriterIntervalObj != null)
+			{
+				clearInterval(typewriterIntervalObj);
+				typewriterIntervalObj = null;
+			}
 			let content_arr = content.split('');
 			let index = 0;
 			target.innerHTML = '';
-			let thisInterval = setInterval(function(){
+			typewriterIntervalObj = setInterval(function(){
 				if(content_arr[index] == ' ')
 					target.innerHTML += '&nbsp;';
 				else
 					target.innerHTML += content_arr[index];
 				index++;
 				if(index == content_arr.length){
-					clearInterval(thisInterval);
+					clearInterval(typewriterIntervalObj);
 					if(callback)
 						callback();
 				}
@@ -294,15 +300,17 @@
 	        sContent.innerHTML = e.state.html;
 	        lang = e.state.lang;
 	        page = e.state.page;
+	        console.log('page: ');
 	        console.log(page);
+	        console.log('html: ');
+	        console.log(e.state.html);
 	        if(page !== 'home'){
-	        	
 	        	body.classList.add('subpage');
-	        	typewriter(page, sWeather, typewriterInterval);
+	        	typewriter(page, sWeather, typingInterval);
 	        }
 	        else{
 	        	body.classList.remove('subpage');
-	        	typewriter(string_weather, sWeather, typewriterInterval);
+	        	typewriter(string_weather, sWeather, typingInterval);
 	        }
 	    }
 	});
