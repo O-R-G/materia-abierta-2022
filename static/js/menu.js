@@ -4,7 +4,9 @@ function makeMenu(container, itemNames){
 		menuItem.classList = 'menu-item sans';
 		let menuItemLink = document.createElement('A');
 		menuItemLink.innerText = el;
-		menuItemLink.href = '/' + lang + '/' + el + '.html';
+		menuItemLink.addEventListener('click', function(){
+			requestPage();
+		});
 		menuItem.appendChild(menuItemLink);
 		container.appendChild(menuItem);
 	});

@@ -11,8 +11,12 @@ request_static_weather.onreadystatechange = function(){
 			try{
                 if(request_static_weather.responseText)
                 	string_weather = request_static_weather.responseText;
-                if(typeof typewriter === 'function')
-					typewriter(string_weather, sWeather, 100, nextStage);
+                if(typeof typewriter === 'function'){
+                	if(page === 'home')
+						typewriter(string_weather, sWeather, 100, nextStage);
+					else
+						typewriter(page, sWeather, 100, nextStage);
+                }
 				else
 				{
 					window.addEventListener('load', function(){
@@ -106,8 +110,12 @@ request_weather.onreadystatechange = function(){
 				else
 				{
 					window.addEventListener('load', function(){
-						if(typeof typewriter === 'function')
-							typewriter(string_weather, sWeather, 100, nextStage);
+						if(typeof typewriter === 'function'){
+							if(page === 'home')
+								typewriter(string_weather, sWeather, 100, nextStage);
+							else
+								typewriter(page, sWeather, 100, nextStage);
+						}
 
 					});
 				}

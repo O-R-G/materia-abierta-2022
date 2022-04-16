@@ -41,7 +41,7 @@
 <!-- <script src="/static/js/general.js"></script> -->
 
 <script>
-	let searchParams = new URLSearchParams(window.location.search);
+	var searchParams = new URLSearchParams(window.location.search);
 	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
 	var page = searchParams.get('page') !== null ? searchParams.get('page') : 'home';
 	var isTest = searchParams.get('test') !== null;
@@ -92,7 +92,10 @@
 			menuItem.classList = 'menu-item sans';
 			let menuItemLink = document.createElement('A');
 			menuItemLink.innerText = el;
-			menuItemLink.href = '/' + lang + '/' + el + '.html';
+			menuItemLink.addEventListener('click', function(){
+				requestPage(el);
+				toggleMenu();
+			});
 			menuItem.appendChild(menuItemLink);
 			sMenu.appendChild(menuItem);
 		});
@@ -145,6 +148,7 @@
 				if(homeContent_full !== ''){
 					sContent_container.classList.add('transition');
 					sContent.innerHTML = homeContent_full;
+					window.history.pushState({"html":homeContent_full, "lang":lang, "page":page},"", '/?lang='+lang);
 					setTimeout(function(){
             			sContent_container.classList.remove('transition');
             			typewriter(string_weather, sWeather, typewriterInterval);
@@ -152,6 +156,7 @@
 				}
 				else
 				{
+					sContent_container.classList.add('transition');
 					filenames.forEach((el, i) => {
 						let url = lang + '/' + el.toLowerCase() + '.html';
 						request_content[i] = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -172,6 +177,11 @@
 										sContent.innerHTML = homeContent_full;
 										// homeContent_full = document.getElementById('intro').innerHTML + homeContent_full;
 										// homeContent_full += document.getElementById('outro').innerHTML;
+										window.history.pushState({"html":homeContent_full, "lang":lang, "page":page},"", '/?lang='+lang);
+										setTimeout(function(){
+					            			sContent_container.classList.remove('transition');
+					            			typewriter(string_weather, sWeather, typewriterInterval);
+					            		}, 0);
 									}
 								}
 							}
@@ -181,7 +191,7 @@
 					});
 				}
 				document.body.classList.remove('subpage');
-				window.history.pushState({"html":homeContent_full},"", '/?lang='+lang);
+				
 			}
 			else
 			{
@@ -197,8 +207,9 @@
 			                	{
 			                		sContent_container.classList.add('transition');
 			                		sContent.innerHTML = request_page.responseText;
-			                		window.history.pushState({"html":request_page.responseText, "pageTitle":"hh"},"", pathUrl);
+			                		window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
 			                		setTimeout(function(){
+			                			console.log();
 			                			sContent_container.classList.remove('transition');
 			                			typewriter(target, sWeather, typewriterInterval);
 			                			document.body.classList.add('subpage');
@@ -209,9 +220,9 @@
 								console.log(err);
 							}
 						}
-						else console.log('request_page.status !== 200');
+						// else console.log('request_page.status !== 200');
 					}
-					else console.log('request_page.readyState !== 4');
+					// else console.log('request_page.readyState !== 4');
 				};
 				request_page.open('GET', path);
 				request_page.send();
@@ -223,7 +234,10 @@
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
 		if(currentStage == 0){
 			document.body.setAttribute('loadingStage', currentStage +1);
-			typewriter(string_weather, sWeather, typewriterInterval, nextStage);
+			if(page === 'home')
+				typewriter(string_weather, sWeather, typewriterInterval, nextStage);
+			else
+				typewriter(page, sWeather, typewriterInterval, nextStage);
 		}
 		else
 		{
@@ -278,8 +292,18 @@
 		console.log(e);
 	    if(e.state){
 	    	console.log(e);
-	        sContent_container.innerHTML = e.state.html;
-	        // document.title = e.state.pageTitle;
+	        sContent.innerHTML = e.state.html;
+	        lang = e.state.lang;
+	        page = e.state.page;
+	        if(page !== 'home'){
+	        	console.log(page);
+	        	body.classList.add('subpage');
+	        	typewriter(page, sWeather, typewriterInterval);
+	        }
+	        else{
+	        	body.classList.remove('subpage');
+	        	typewriter(string_weather, sWeather, typewriterInterval);
+	        }
 	    }
 	});
 	var r = document.querySelector(':root');
