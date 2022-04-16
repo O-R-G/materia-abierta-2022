@@ -190,6 +190,7 @@
 								}
 								else{
 									console.log('request_content[i].status !== 200. requesting again...');
+									request_content[i].open('GET', url);
 									request_content[i].send();
 								}
 							}
