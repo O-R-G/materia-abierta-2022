@@ -109,15 +109,14 @@ request_weather.onreadystatechange = function(){
 				}
 				else
 				{
-					window.addEventListener('load', function(){
-						if(typeof typewriter === 'function'){
-							if(page === 'home')
-								typewriter(string_weather, sWeather, 100, nextStage);
-							else
-								typewriter(page, sWeather, 100, nextStage);
-						}
-
-					});
+					// window.addEventListener('load', function(){
+					// 	if(typeof typewriter === 'function'){
+					// 		if(page === 'home')
+					// 			typewriter(string_weather, sWeather, 100, nextStage);
+					// 		else
+					// 			typewriter(page, sWeather, 100, nextStage);
+					// 	}
+					// });
 				}
 			}
 			catch(err){
