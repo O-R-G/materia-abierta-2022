@@ -2,8 +2,8 @@
 var body = document.body;
 var bodyClass = '';
 var r = document.querySelector(':root');
-var request_weather = new XMLHttpRequest();
-var request_static_weather = new XMLHttpRequest();
+var request_weather = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+var request_static_weather = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 var string_weather = '';
 request_static_weather.onreadystatechange = function(){
 	if (request_static_weather.readyState === 4) {
