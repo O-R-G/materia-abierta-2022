@@ -7,10 +7,10 @@
 	<link rel="stylesheet" href="/static/css/main.css">
 	<script src="static/pde/processing-1.4.1.min.js"></script>
 </head>
-<body loadingStage = "0">
+<body loadingStage = "0" class="loading">
 	<div id="background"></div>
+	<div id="loading-msg" class="sans">Loading . . .</div>
 	<div id="live-background">
-		
 		<div id="player"></div>
 	</div>
 	<span><a id='title' onclick="requestPage('home')">Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
@@ -186,7 +186,7 @@
 			else
 			{
 				let path = '/' + lang + '/' + target_lowercased + '.html';
-				let pathUrl = isTest ? '/?lang='+lang+'&page='+target_lowercased : '/?lang='+lang+'&page='+target+'&test';
+				let pathUrl = isTest ? '/?lang='+lang+'&page='+target+'&test' : '/?lang='+lang+'&page='+target;
 				
 				var request_page = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 				request_page.onreadystatechange = function(){

@@ -70,6 +70,7 @@ function centerLiveFeed(){
 } 
 
 window.addEventListener('load', function(){
+	body.classList.remove('loading');
 	centerLiveFeed();
 });
 window.addEventListener('resize', function(){

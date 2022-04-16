@@ -418,12 +418,24 @@ body[loadingstage="1"] #content-container
 	right: 20px;
 	z-index: 1000;
 }
-
+#loading-msg
+{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+.loading #loading-msg
+{
+	display: block;
+}
 body[loadingstage="0"] #live-background
 {
 	z-index: 1000;
 	pointer-events: auto;
 }
+
 #live-background
 {
 	position: fixed;
@@ -435,6 +447,11 @@ body[loadingstage="0"] #live-background
 	height: 100vh;
 	overflow: hidden;
 	pointer-events: none;
+	transition: opacity .5s;
+}
+.loading #live-background
+{
+	opacity: 0;
 }
 #live-background > iframe
 {
