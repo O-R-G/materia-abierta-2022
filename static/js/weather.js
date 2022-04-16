@@ -37,8 +37,8 @@ request_weather.onreadystatechange = function(){
 			try{
                 var data= JSON.parse(request_weather.responseText)['current'];
 				var isDay = data['is_day'] != 0;
-				bodyClass += isDay ? 'is_day' : ' is_night';
-				body.classList = bodyClass;
+				bodyClass += isDay ? 'is_day' : 'is_night';
+				body.classList.add(bodyClass);
 				// console.log(r);
 				// console.log(data);
 				if(typeof data['temp_c'] != 'undefined')

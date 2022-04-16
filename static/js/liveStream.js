@@ -17,7 +17,7 @@ function onYouTubeIframeAPIReady() {
 player = new YT.Player('player', {
   height: player_h,
   width: player_w,
-  videoId: 'F_6bQj4Wz5E',
+  videoId: 'phMtEWlGw_k',
   playerVars: {
     'playsinline': 1,
     'muted': 1
@@ -36,16 +36,17 @@ var played = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING && !played) {
 		player.mute();
-		nextStage();
-	  	played = true;
+		if(!isTest)
+			nextStage();
+		else{
+			// homepage speedrun
+			document.body.setAttribute('loadingstage', '3');
+			typewriter(string_weather, sWeather, 10);
+			typewriter(string_geolocation, sGeolocation, 10);
+		}
+	  played = true;
 	}
 }
-var msg_liveConsent = {
-	'es': '(es)Materia Abierta would like to play a live stream at the background.<br>Please click the play button to continue.',
-	'en': 'Materia Abierta would like to play a live stream at the background.<br>Please click the play button to continue.'
-};
-var sConsent_msg = document.getElementById('consent-msg');
-sConsent_msg.innerHTML = msg_liveConsent[lang];
 function centerLiveFeed(){
 	let sPlayer = document.getElementById('player');
 	let sLive_background = document.getElementById('live-background');
@@ -56,21 +57,19 @@ function centerLiveFeed(){
 	let screen_ratio = wH / wW;
 	if(video_ratio < screen_ratio)
 	{
-		console.log('screen is thinner');
+		// console.log('screen is thinner');
 		sPlayer.height = wH;
 		sPlayer.width = wH / video_ratio;
 	}
 	else
 	{
-		console.log('screen is wider');
+		// console.log('screen is wider');
 		sPlayer.width = wW;
 		sPlayer.height = wW * video_ratio;
 	}
 } 
 
 window.addEventListener('load', function(){
-	
-	
 	centerLiveFeed();
 });
 window.addEventListener('resize', function(){

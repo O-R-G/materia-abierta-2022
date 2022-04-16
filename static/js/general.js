@@ -1,7 +1,9 @@
 // lang
 let searchParams = new URLSearchParams(window.location.search);
 var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
-console.log(lang);
+var page = searchParams.get('page') !== null ? searchParams.get('page') : 'home';
+var isTest = searchParams.get('test') !== null ?;
+
 var filenames_all = {
 	'en':[
 		'Open Call 2022',
@@ -54,3 +56,13 @@ if(sMenu)
 	});
 }
 else console.log('#menu not found');
+
+var bActiveX;
+
+try {
+  new ActiveXObject('Microsoft.XMLHTTP');
+  bActiveX = true;
+}
+catch(e) {
+  bActiveX = false;
+}

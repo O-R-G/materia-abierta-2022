@@ -8,15 +8,12 @@
 	<script src="static/pde/processing-1.4.1.min.js"></script>
 </head>
 <body loadingStage = "0">
-	<div id="consent-container">
-		<div id="consent-msg"></div>
-	</div>
 	<div id="background"></div>
 	<div id="live-background">
 		
 		<div id="player"></div>
 	</div>
-	<span><a id='title' href='/'>Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
+	<span><a id='title' onclick="requestPage('home')">Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
 	<div id="content-container">
 	    <span id='intro'>
 	        <i>This is the website for </i><b>The Rise of the Coyote</b>. <i>A website is (also written as web site) is a collection of web pages 
@@ -41,28 +38,192 @@
 <div id="geolocation" class="sans">Connecting . . .</div>
 <div id="lang-toggle" class="sans"><a href="/">ES</a> / <a href="/?lang=en">EN</a></div>
 <script src="/static/js/weather.js"></script>
-<script src="/static/js/general.js"></script>
-<script src="/static/js/liveStream.js"></script>
+<!-- <script src="/static/js/general.js"></script> -->
+
 <script>
-	
-	var fullContent = '';
-	var slicedContent = {};
-	var match = [];
-	var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
+	let searchParams = new URLSearchParams(window.location.search);
+	var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
+	var page = searchParams.get('page') !== null ? searchParams.get('page') : 'home';
+	var isTest = searchParams.get('test') !== null;
+
+	var filenames_all = {
+		'en':[
+			'Open Call 2022',
+			'The Rise of the Coyote',
+			'Milpa Alta and Xochimilco',
+			'Curatorial text',
+			'Program',
+			'Tutors',
+			'Participants',
+			'Cost',
+			'Calendar',
+			'Application',
+			'Credits',
+			'Contact',
+			'Bios'
+		],
+		'es':[
+			'Convocatoria 2022',
+			'La rebelión del coyote',
+			'Milpa Alta y Xochimilco',
+			'Resumen curatorial',
+			'Programa',
+			'Docentes',
+			'Participantes',
+			'Costo',
+			'Calendario',
+			'Aplicación',
+			'Créditos',
+			'Contacto',
+			'Semblanzas'
+		]
+	};
+	var filenames = filenames_all[lang];
+
+	// menu
+	function toggleMenu(){
+		document.body.classList.toggle('viewing-menu');
+	}
+	var sMenu = document.getElementById('menu');
+	if(sMenu)
+	{
+		filenames.forEach((el, i) => {
+			let menuItem = document.createElement('DIV');
+			menuItem.classList = 'menu-item sans';
+			let menuItemLink = document.createElement('A');
+			menuItemLink.innerText = el;
+			menuItemLink.href = '/' + lang + '/' + el + '.html';
+			menuItem.appendChild(menuItemLink);
+			sMenu.appendChild(menuItem);
+		});
+	}
+	else console.log('#menu not found');
+
+	// support of xmlhttprequest
+	var bActiveX;
+	try {
+	  new ActiveXObject('Microsoft.XMLHTTP');
+	  bActiveX = true;
+	}
+	catch(e) {
+	  bActiveX = false;
+	}
+
+	var sContent_container = document.getElementById('content-container');
+	var sContent = document.getElementById('content');
+	var sBackground = document.getElementById('background');
 	var sWeather = document.getElementById('weather');
 	var sGeolocation = document.getElementById('geolocation');
+
+	var homeContent_full = '';
+	var homeContent_sliced = {};
+	var subpageContent = {};
+	var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
+	
+	var match = [];
+
 	var fadeInDuration = 500;
 	var stageDelay = 1000;
+	var typewriterInterval = isTest ? 10 : 100;
 	if(window.innerWidth > 500)
 		var sizer = 220;
 	else
 		var sizer = 140;
-	
+
+	var loadedCount = 0;
+	var request_content = [];
+
+	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
+
+	function requestPage(target="home"){
+
+		if (window.XMLHttpRequest || bActiveX) { // IE7+, FF and Chrome
+
+			let target_lowercased = target.toLowerCase();
+			if(target == 'home')
+			{
+				if(homeContent_full !== ''){
+					sContent_container.classList.add('transition');
+					sContent.innerHTML = homeContent_full;
+					setTimeout(function(){
+            			sContent_container.classList.remove('transition');
+            			typewriter(string_weather, sWeather, typewriterInterval);
+            		}, 0);
+				}
+				else
+				{
+					filenames.forEach((el, i) => {
+						let url = lang + '/' + el.toLowerCase() + '.html';
+						request_content[i] = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+						request_content[i].onreadystatechange = function() {
+							if(request_content[i].readyState == 4)
+							{
+								if (request_content[i].status === 200) {
+									let match = request_content[i].responseText.match(synopsis_pattern);
+									if(match && match.length > 1)
+									{
+										homeContent_sliced[el] = '<span class="section-content"><a class="section-title" onclick="requestPage(\''+el+'\')">' + el + '</a> ' + match[1] + '</span>&nbsp;';
+									}
+									loadedCount++;
+									if(loadedCount == filenames.length){
+										filenames.forEach(function(elemt, j){
+											homeContent_full += homeContent_sliced[elemt];
+										});
+										sContent.innerHTML = homeContent_full;
+										// homeContent_full = document.getElementById('intro').innerHTML + homeContent_full;
+										// homeContent_full += document.getElementById('outro').innerHTML;
+									}
+								}
+							}
+						}
+						request_content[i].open('GET', url);
+						request_content[i].send();
+					});
+				}
+				document.body.classList.remove('subpage');
+				window.history.pushState({"html":homeContent_full},"", '/?lang='+lang);
+			}
+			else
+			{
+				let path = '/' + lang + '/' + target_lowercased + '.html';
+				let pathUrl = isTest ? '/?lang='+lang+'&page='+target_lowercased : '/?lang='+lang+'&page='+target+'&test';
+				
+				var request_page = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+				request_page.onreadystatechange = function(){
+					if (request_page.readyState === 4) {
+						if (request_page.status === 200) { 
+							try{
+				                if(request_page.responseText)
+			                	{
+			                		sContent_container.classList.add('transition');
+			                		sContent.innerHTML = request_page.responseText;
+			                		window.history.pushState({"html":request_page.responseText, "pageTitle":"hh"},"", pathUrl);
+			                		setTimeout(function(){
+			                			sContent_container.classList.remove('transition');
+			                			typewriter(target, sWeather, typewriterInterval);
+			                			document.body.classList.add('subpage');
+			                		}, 0);
+			                	}
+							}
+							catch(err){
+								console.log(err);
+							}
+						}
+						else console.log('request_page.status !== 200');
+					}
+					else console.log('request_page.readyState !== 4');
+				};
+				request_page.open('GET', path);
+				request_page.send();
+			}
+			page = target_lowercased;
+		}
+	}
 	function nextStage(){
 		let currentStage = parseInt(document.body.getAttribute('loadingStage'));
 		if(currentStage == 0){
 			document.body.setAttribute('loadingStage', currentStage +1);
-			typewriter(string_weather, sWeather, 100, nextStage);
+			typewriter(string_weather, sWeather, typewriterInterval, nextStage);
 		}
 		else
 		{
@@ -71,13 +232,13 @@
 				{
 					document.body.setAttribute('loadingStage', currentStage +1);
 					setTimeout(function(){
-						typewriter(string_geolocation, sGeolocation, 100, nextStage);
+						typewriter(string_geolocation, sGeolocation, typewriterInterval, nextStage);
 					}, fadeInDuration);
 					
 				}
 				else if(currentStage == 2)
 				{
-					if(loadedCount == filenames.length)
+					if(page !== 'home' || loadedCount == filenames.length)
 						document.body.setAttribute('loadingStage', currentStage +1);
 					else
 						setTimeout(nextStage, 500);
@@ -86,7 +247,7 @@
 		}
 		
 	}
-	function typewriter(content, target, interval=500, callback=false){
+	function typewriter(content, target, interval=100, callback=false){
 		if(content.length != 0){
 			let content_arr = content.split('');
 			let index = 0;
@@ -110,40 +271,21 @@
 				callback();
 		}
 	}
-	var loadedCount = 0;
-	var request_content = [];
-	var sContent = document.getElementById('content');
-	var sBackground = document.getElementById('background');
-	var r = document.querySelector(':root');
-	var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
-	filenames.forEach((el, i) => {
-		let url = lang + '/' + el.toLowerCase() + '.html';
-		request_content[i] = new XMLHttpRequest();
-		request_content[i].onreadystatechange = function() {
-			if(request_content[i].readyState == 4)
-			{
-				if (request_content[i].status === 200) {
-					let match = request_content[i].responseText.match(synopsis_pattern);
-					if(match && match.length > 1)
-					{
-						slicedContent[el] = '<span class="section-content"><a class="section-title" href="'+url+'">' + el + '</a> ' + match[1] + '</span>&nbsp;';
-					}
-					loadedCount++;
-					if(loadedCount == filenames.length){
-						filenames.forEach(function(elemt, j){
-							fullContent += slicedContent[elemt];
-						});
-						sContent.innerHTML = fullContent;
-					}
-				}
-			}
-		}
-		request_content[i].open('GET', url);
-		request_content[i].send();
-	});
 
+	requestPage(page);
+	window.addEventListener('popstate', function(e){
+		console.log('onpopstate');
+		console.log(e);
+	    if(e.state){
+	    	console.log(e);
+	        sContent_container.innerHTML = e.state.html;
+	        // document.title = e.state.pageTitle;
+	    }
+	});
+	var r = document.querySelector(':root');
 	request_weather.send();
-	
+
 </script>
+<script src="/static/js/liveStream.js"></script>
 </body>
 </html>

@@ -23,11 +23,12 @@ body {
     color: var(--text-color);
     /*background-color: var(--background-color);*/
 }
-
+a,
 a:link,
 a:visited {
     /*color: #00F;*/
     color: var(--highlight-color);
+    cursor: pointer;
 }
 
 /*a:visited {
@@ -344,6 +345,12 @@ img {
 	margin-top: 17px;
 }
 
+.subpage #intro,
+.subpage #outro
+{
+	display: none;
+}
+
 /* transition */
 #intro {
 	transition: opacity .5s;
@@ -353,6 +360,15 @@ img {
 }
 #content {
 	transition: opacity .5s;
+}
+#content-container
+{
+	transition: opacity .5s;
+}
+#content-container.transition
+{
+	opacity: 0;
+	transition: none;
 }
 
 /* loading sequences  */
