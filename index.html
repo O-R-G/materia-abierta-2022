@@ -209,7 +209,6 @@
 			                		sContent.innerHTML = request_page.responseText;
 			                		window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
 			                		setTimeout(function(){
-			                			console.log();
 			                			sContent_container.classList.remove('transition');
 			                			typewriter(target, sWeather, typewriterInterval);
 			                			document.body.classList.add('subpage');
@@ -288,15 +287,16 @@
 
 	requestPage(page);
 	window.addEventListener('popstate', function(e){
-		console.log('onpopstate');
-		console.log(e);
+		// console.log('onpopstate');
+		// console.log(e);
 	    if(e.state){
-	    	console.log(e);
+	    	// console.log(e);
 	        sContent.innerHTML = e.state.html;
 	        lang = e.state.lang;
 	        page = e.state.page;
+	        console.log(page);
 	        if(page !== 'home'){
-	        	console.log(page);
+	        	
 	        	body.classList.add('subpage');
 	        	typewriter(page, sWeather, typewriterInterval);
 	        }
