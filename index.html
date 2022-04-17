@@ -7,11 +7,11 @@
 	<link rel="stylesheet" href="/static/css/main.css">
 	<script src="static/pde/processing-1.4.1.min.js"></script>
 </head>
-<body loadingStage = "0" class="loading">
+<body loadingStage = "0" class="loading loading-player-server">
 	<div id="background"></div>
 	<div id="loading-msg" class="sans">Loading . . .</div>
 	<div id="live-background">
-		<div id="player_sky"></div>
+		<div id="player-sky"></div>
 	</div>
 	<span><a id='title' onclick="requestPage('home')">Materia Abierta</a> / <span id="weather" class="sans">Connecting . . .</span></span><br><br><br>
 	<div id="content-container">
@@ -24,7 +24,7 @@
 			<i>The world wide web was designed as a two-way medium, hosts and clients.</i>
 		</span>
 	</div>
-	<div id="badge"><div id="player_server"></div></div>
+	<div id="badge"><div id="player-server"></div></div>
 	<div id='clock'><canvas class='clock' datasrc="/static/pde/clock.pde"
         width="200" height="200" tabindex="0"
         style="image-rendering: optimizeQuality !important;">

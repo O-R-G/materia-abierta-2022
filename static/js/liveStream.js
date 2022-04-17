@@ -23,10 +23,10 @@ else
 }
 video_ratio = player_sky_h / player_sky_w;
 
-var video_ready_count = 0;
+var play_server_isReady = false;
 
 function onYouTubeIframeAPIReady() {
-	player_sky = new YT.Player('player_sky', {
+	player_sky = new YT.Player('player-sky', {
 	  height: player_sky_h,
 	  width: player_sky_w,
 	  videoId: 'phMtEWlGw_k',
@@ -41,7 +41,7 @@ function onYouTubeIframeAPIReady() {
 	  }
 	});
 
-	player_server = new YT.Player('player_server', {
+	player_server = new YT.Player('player-server', {
 	  height: player_server_h,
 	  width: player_server_w,
 	  videoId: '14rWLXOvpWo',
@@ -50,21 +50,22 @@ function onYouTubeIframeAPIReady() {
 	    'muted': 1
 	  },
 	  events: {
-	    // 'onStateChange': onPlayerStateChange
+	  	'onReady': onPlayerServerReady,
+	    'onStateChange': onPlayerServerStateChange
 	  }
 	});
 }
 
 // 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-	event.target.playVideo();
+function onPlayerServerReady(event) {
+	console.log("onPlayerServerReady");
+	body.classList.remove('loading-player-server');
 }
 var played = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING && !played) {
 		player_sky.mute();
 		player_server.mute();
-		player_server.playVideo();
 		if(!isTest)
 			nextStage();
 		else{
@@ -76,8 +77,12 @@ function onPlayerStateChange(event) {
 	  played = true;
 	}
 }
+function onPlayerServerStateChange(event) {
+	console.log("player server state changes");
+	body.classList.add('playing-player-server');
+}
 function centerLiveFeed(){
-	let sPlayer_sky = document.getElementById('player_sky');
+	let sPlayer_sky = document.getElementById('player-sky');
 	let sLive_background = document.getElementById('live-background');
 	wW = window.innerWidth;
 	wH = window.innerHeight;

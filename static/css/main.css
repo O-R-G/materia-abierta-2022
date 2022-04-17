@@ -85,7 +85,7 @@ form, input {
     border-radius: 10%;
     overflow: hidden;
     transition: opacity .5s;
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 #clock
 {
@@ -394,11 +394,16 @@ body[loadingstage="1"] #outro
 	opacity: 0;
 	pointer-events: none;
 }
+/*body.loading-player-server #clock
+{
+	opacity: 1;
+}*/
 body[loadingstage="0"] #clock,
 body[loadingstage="1"] #clock
 {
 	opacity: 1;
 }
+
 body[loadingstage="2"] #menu-container,
 body[loadingstage="2"] #content,
 body[loadingstage="2"] #intro,
@@ -477,6 +482,12 @@ body[loadingstage="0"] #consent-container
 {
 	display: block;
 }
+
+.playing-player-server #badge
+{
+	pointer-events: none;
+}
+
 @media screen and (max-width: 500px)
 {   
 	body {
