@@ -81,9 +81,11 @@ form, input {
     right: 20px;
     bottom: 20px;
     width: 220px;
+    height: 220px;
     border-radius: 10%;
     overflow: hidden;
     transition: opacity .5s;
+    pointer-events: none;
 }
 #clock
 {
@@ -453,7 +455,8 @@ body[loadingstage="0"] #live-background
 {
 	opacity: 0;
 }
-#live-background > iframe
+#live-background > iframe,
+#badge > iframe
 {
 	position: absolute;
 	top: 50%;
@@ -485,6 +488,7 @@ body[loadingstage="0"] #consent-container
 	#clock
 	{
 		width: 140px;
+		height: 140px;
 	}
 	.sans
 	{
