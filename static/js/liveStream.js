@@ -36,7 +36,7 @@ function onYouTubeIframeAPIReady() {
 	  },
 	  events: {
 	  	'onStateChange': onPlayerStateChange,
-	  	'onReady': onPlayerReady
+	  	// 'onReady': onPlayerReady
 	    
 	  }
 	});
@@ -50,7 +50,7 @@ function onYouTubeIframeAPIReady() {
 	    'muted': 1
 	  },
 	  events: {
-	    'onStateChange': onPlayerStateChange
+	    // 'onStateChange': onPlayerStateChange
 	  }
 	});
 }
