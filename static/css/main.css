@@ -93,7 +93,6 @@ form, input {
     right: 20px;
     bottom: 20px;
     width: 220px;
-    opacity: 0;
     pointer-events: none;
 }
 
@@ -393,15 +392,6 @@ body[loadingstage="1"] #outro
 {
 	opacity: 0;
 	pointer-events: none;
-}
-/*body.loading-player-server #clock
-{
-	opacity: 1;
-}*/
-body[loadingstage="0"] #clock,
-body[loadingstage="1"] #clock
-{
-	opacity: 1;
 }
 
 body[loadingstage="2"] #menu-container,

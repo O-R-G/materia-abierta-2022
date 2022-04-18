@@ -41,19 +41,19 @@ function onYouTubeIframeAPIReady() {
 	  }
 	});
 
-	player_server = new YT.Player('player-server', {
-	  height: player_server_h,
-	  width: player_server_w,
-	  videoId: '14rWLXOvpWo',
-	  playerVars: {
-	    'playsinline': 1,
-	    'muted': 1
-	  },
-	  events: {
-	  	'onReady': onPlayerServerReady,
-	    'onStateChange': onPlayerServerStateChange
-	  }
-	});
+	// player_server = new YT.Player('player-server', {
+	//   height: player_server_h,
+	//   width: player_server_w,
+	//   videoId: '14rWLXOvpWo',
+	//   playerVars: {
+	//     'playsinline': 1,
+	//     'muted': 1
+	//   },
+	//   events: {
+	//   	'onReady': onPlayerServerReady,
+	//     'onStateChange': onPlayerServerStateChange
+	//   }
+	// });
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -65,12 +65,13 @@ var played = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING && !played) {
 		player_sky.mute();
-		player_server.mute();
+		// player_server.mute();
 		if(!isTest)
 			nextStage();
 		else{
 			// homepage speedrun
 			document.body.setAttribute('loadingstage', '3');
+			sContent_container.classList.remove('transition');
 			typewriter(string_weather, sWeather, 10);
 			typewriter(string_geolocation, sGeolocation, 10);
 		}
