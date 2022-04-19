@@ -111,7 +111,7 @@ request_client.onreadystatechange = function(){
 				if(typeof data_client['temp_c'] != 'undefined')
 				{
 					let temp = data_client['temp_c'];
-					string_weather = 'Currently ' + temp + '° C';
+					string_weather = temp + '° C';
 				}
 				if(typeof data_client['condition'] != 'undefined' && typeof data_client['condition']['text'] != 'undefined')
 				{
