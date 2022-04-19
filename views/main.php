@@ -166,6 +166,7 @@
         longitude = position.coords.longitude;
         string_geolocation = latitude + ', '+longitude;
         request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
+        request_client.open('GET', request_client_url);
         request_client.send();
     }
     function geoError(err){

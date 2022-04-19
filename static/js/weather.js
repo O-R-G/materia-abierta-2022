@@ -125,12 +125,18 @@ request_client.onreadystatechange = function(){
 			}
 			catch(err){
 				// request_static_weather.send();
+				clientWeather_isReady = true;
+		        if(liveStream_isReady)
+		            body.classList.remove('loading');
 			}
 		}
 		else
 		{
 			// console.log('not 200');
 			// request_static_weather.send();
+			clientWeather_isReady = true;
+	        if(liveStream_isReady)
+	            body.classList.remove('loading');
 		}
 	}
 };
@@ -138,4 +144,4 @@ request_client.onreadystatechange = function(){
 var request_milpa_alta_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Milpa Alta&lang='+lang;
 var request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
 request_milpa_alta.open('GET', request_milpa_alta_url);
-request_client.open('GET', request_client_url);
+
