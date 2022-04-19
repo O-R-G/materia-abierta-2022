@@ -176,10 +176,7 @@
             navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
         }
     }
-    sGeolocation.addEventListener('click', function(){
-        initGeo();
-    });
-    
+    initGeo();
 
     // request page
     var requestPage_url = '/static/php/requestPage.php';
