@@ -78,6 +78,8 @@
     var body = document.body;
     var r = document.querySelector(':root');
     var latitude, longitude;
+    var clientWeather_isReady = false;
+    var liveStream_isReady = false;
 </script>
 <script src="/static/js/weather.js"></script>
 <script>

@@ -101,7 +101,9 @@ function centerLiveFeed(){
 } 
 
 window.addEventListener('load', function(){
-	body.classList.remove('loading');
+	liveStream_isReady = true;
+	if(clientWeather_isReady)
+		body.classList.remove('loading');
 	centerLiveFeed();
 });
 window.addEventListener('resize', function(){

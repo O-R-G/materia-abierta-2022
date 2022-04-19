@@ -119,6 +119,9 @@ request_client.onreadystatechange = function(){
 						string_weather += '. ';
 					string_weather += data_client['condition']['text'];
 				}
+				clientWeather_isReady = true;
+				if(liveStream_isReady)
+					body.classList.remove('loading');
 			}
 			catch(err){
 				// request_static_weather.send();
