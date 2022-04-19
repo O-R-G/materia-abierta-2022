@@ -138,7 +138,7 @@
     var homeContent_full = '';
     var homeContent_sliced = {};
     var subpageContent = {};
-    var string_geolocation = '19°11\'33.04"N, 99°1\'23.41"W';
+    var string_geolocation = '';
     
     var match = [];
 
@@ -154,7 +154,34 @@
     var loadedCount = 0;
     var request_content = [];
 
-    // var synopsis_pattern = /\<span\s*class\s*?=\s*?\"(?:.*?\s+)?subpage-synopsis(?:\s+.*?)?"\>(.*?)\<\/span\>/;
+    // geolocation
+    function geoSuccess(position){
+        // console.log('geoSuccess');
+        let latitude  = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        string_geolocation = latitude + ', '+longitude;
+        console.log(string_geolocation);
+    }
+    function geoError(err){
+        // console.log('geoError');
+        // console.log(err);
+        sGeolocation.innerText = '';
+    }
+    function initGeo(){
+        if(!navigator.geolocation) {
+            // console.log('no geolocation api');
+            sGeolocation.innerText = '';
+        } else {
+            // console.log('locating . . .');
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+        }
+    }
+    sGeolocation.addEventListener('click', function(){
+        initGeo();
+    });
+    
+
+    // request page
     var requestPage_url = '/static/php/requestPage.php';
     function requestPage(target="home"){
 
