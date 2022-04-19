@@ -71,14 +71,17 @@
 <div id="opencall-container" class="sans">
     <?= $opencall_links; ?>
 </div>
-<script src="/static/js/weather.js"></script>
 <script>
-    var searchParams = new URLSearchParams(window.location.search);
     var lang = '<?= $lang; ?>';
     var page = '<?= $page; ?>';
     var isTest = <?= json_encode($isTest); ?>;
     var body = document.body;
-
+    var r = document.querySelector(':root');
+    var latitude, longitude;
+</script>
+<script src="/static/js/weather.js"></script>
+<script>
+    
     var filenames_all = {
         'en':[
             'Open Call 2022',
@@ -157,10 +160,10 @@
     // geolocation
     function geoSuccess(position){
         // console.log('geoSuccess');
-        let latitude  = position.coords.latitude;
-        let longitude = position.coords.longitude;
+        latitude  = position.coords.latitude;
+        longitude = position.coords.longitude;
         string_geolocation = latitude + ', '+longitude;
-        console.log(string_geolocation);
+        request_weather.send();
     }
     function geoError(err){
         // console.log('geoError');
@@ -303,8 +306,7 @@
             }
         }
     });
-    var r = document.querySelector(':root');
-    request_weather.send();
+    
 
 </script>
 <script src="/static/js/liveStream.js"></script>

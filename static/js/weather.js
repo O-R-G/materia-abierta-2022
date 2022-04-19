@@ -103,21 +103,6 @@ request_weather.onreadystatechange = function(){
 						string_weather += '. ';
 					string_weather += data['condition']['text'];
 				}
-
-				// if(typeof typewriter === 'function'){
-				// 	typewriter(string_weather, sWeather, 100, nextStage);
-				// }
-				// else
-				// {
-				// 	window.addEventListener('load', function(){
-				// 		if(typeof typewriter === 'function'){
-				// 			if(page === 'home')
-				// 				typewriter(string_weather, sWeather, 100, nextStage);
-				// 			else
-				// 				typewriter(page, sWeather, 100, nextStage);
-				// 		}
-				// 	});
-				// }
 			}
 			catch(err){
 				request_static_weather.send();
@@ -130,4 +115,4 @@ request_weather.onreadystatechange = function(){
 		}
 	}
 };
-request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Milpa Alta');
+request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'='+lang);
