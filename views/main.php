@@ -173,7 +173,7 @@
                             {
                                 sContent_container.classList.add('transition');
                                 sContent_container.innerHTML = request_page.responseText;
-                                console.log(request_page.responseText);
+                                // console.log(request_page.responseText);
                                 window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
                                 setTimeout(function(){
                                     sContent_container.classList.remove('transition');
@@ -220,7 +220,6 @@
                     setTimeout(function(){
                         typewriter(string_geolocation, sGeolocation, typingInterval, nextStage);
                     }, fadeInDuration);
-                    
                 }
                 else if(currentStage == 2)
                 {
@@ -229,7 +228,6 @@
                 }
             }, stageDelay);     
         }
-        
     }
     function typewriter(content, target, interval=100, callback=false){
         if(content.length != 0){
@@ -261,19 +259,15 @@
         }
     }
 
-    // requestPage(page);
+    // for ajax previous pages
     window.addEventListener('popstate', function(e){
-        // console.log('onpopstate');
+        console.log('onpopstate');
         // console.log(e);
         if(e.state){
-            // console.log(e);
+            sContent = document.getElementById('content');
             sContent.innerHTML = e.state.html;
             lang = e.state.lang;
             page = e.state.page;
-            // console.log('page: ');
-            // console.log(page);
-            // console.log('html: ');
-            // console.log(e.state.html);
             if(page !== 'home'){
                 body.classList.add('subpage');
                 typewriter(page, sWeather, typingInterval);
