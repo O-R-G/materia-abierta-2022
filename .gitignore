@@ -1,3 +1,4 @@
 .DS_Store
 open-records-generator
 media/*.*
+*.sql
