@@ -171,11 +171,17 @@
         // console.log('geoError');
         // console.log(err);
         sGeolocation.innerText = '';
+        clientWeather_isReady = true;
+        if(liveStream_isReady)
+            body.classList.remove('loading');
     }
     function initGeo(){
         if(!navigator.geolocation) {
             // console.log('no geolocation api');
             sGeolocation.innerText = '';
+            clientWeather_isReady = true;
+            if(liveStream_isReady)
+                body.classList.remove('loading');
         } else {
             // console.log('locating . . .');
             navigator.geolocation.getCurrentPosition(geoSuccess, geoError);

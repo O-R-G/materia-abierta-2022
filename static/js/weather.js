@@ -136,6 +136,6 @@ request_client.onreadystatechange = function(){
 };
 // let request_url = location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
 let request_milpa_alta_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Milpa Alta&lang='+lang;
-let request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Milpa Alta&lang='+lang;
+let request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
 request_milpa_alta.open('GET', request_milpa_alta_url);
 request_client.open('GET', request_client_url);
