@@ -28,6 +28,7 @@
         $logos = trim($item['notes']);
         if(!empty($logos))
             $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
+        $opencall_links = trim($item['body']);
     }
     else
     {
@@ -51,7 +52,7 @@
 </div>
 <main id='content-container' class="transition"><?= $content; ?></main>
 <div id="geolocation" class="sans">Connecting . . .</div>
-<div id="lang-toggle" class="sans"><a href="/lang=es">ES</a> / <a href="/?lang=en">EN</a></div>
+<div id="lang-toggle" class="sans"><a class="<?= $lang == 'en' ? 'active' : ''; ?>" href="/?lang=en">EN</a> / <a class="<?= $lang == 'es' ? 'active' : ''; ?>" href="/?lang=es">ES</a></div>
 <div id='clock'><canvas class='clock' datasrc="/static/pde/clock.pde"
     width="200" height="200" tabindex="0"
     style="image-rendering: optimizeQuality !important;">
@@ -67,8 +68,8 @@
 <div id="past-websites-container">
     <a href="https://2019.materiaabierta.com" class="past-website sans">2019</a> <a href="https://2020.materiaabierta.com" class="past-website sans">2020</a> <a href="https://2021.materiaabierta.com" class="past-website sans">2021</a>
 </div>
-<div id="opencall-container">
-    <a download href="" class="sans">Download open call</a>
+<div id="opencall-container" class="sans">
+    <?= $opencall_links; ?>
 </div>
 <script src="/static/js/weather.js"></script>
 <script>

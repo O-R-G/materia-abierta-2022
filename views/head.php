@@ -41,7 +41,7 @@ else
 $isTest = isset($_GET['test']);
 
 $body_class = 'loading loading-player-server';
-
+$body_class .= ' ' . $lang;
 if($isHome)
 	$body_class .= ' home';
 else

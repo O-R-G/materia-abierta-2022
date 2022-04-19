@@ -2,3 +2,4 @@
 open-records-generator
 media/*.*
 *.sql
+static/bash/log

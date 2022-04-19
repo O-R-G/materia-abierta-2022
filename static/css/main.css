@@ -41,13 +41,17 @@ a:visited {
 }*/
 
 .is_day a:hover,
-.is_day a:active {
+.is_day a:active,
+.is_day a.active
+ {
     background-color: var(--highlight-color);
 	color: #FFF; 
 }
 
 .is_night a:hover,
-.is_night a:active {
+.is_night a:active,
+.is_night a.active
+ {
     background-color: var(--highlight-color);
 	color: var(--background-color);
 }
@@ -526,6 +530,14 @@ body[loadingstage="0"] #consent-container
 #institutions-logos-container path{
 	fill: var(--text-color) !important;
 }
+
+body.en #opencall-container a:last-child {
+	display: none;
+}
+body.es #opencall-container a:first-child {
+	display: none;
+}
+
 @media screen and (max-width: 500px)
 {   
 	body {
