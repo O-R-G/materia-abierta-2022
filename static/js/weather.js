@@ -115,4 +115,7 @@ request_weather.onreadystatechange = function(){
 		}
 	}
 };
-request_weather.open('GET', location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'='+lang);
+
+let request_url = location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
+// let request_url = location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=25.0499694,121.5185637&lang='+lang;
+request_weather.open('GET', request_url);
