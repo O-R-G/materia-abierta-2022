@@ -163,7 +163,7 @@
         latitude  = position.coords.latitude;
         longitude = position.coords.longitude;
         string_geolocation = latitude + ', '+longitude;
-        request_weather.send();
+        request_client.send();
     }
     function geoError(err){
         // console.log('geoError');
@@ -234,8 +234,10 @@
         let currentStage = parseInt(document.body.getAttribute('loadingStage'));
         if(currentStage == 0){
             document.body.setAttribute('loadingStage', currentStage +1);
-            if(page === 'home')
+            if(page === 'home'){
+                console.log(string_weather);
                 typewriter(string_weather, sWeather, typingInterval, nextStage);
+            }
             else
                 typewriter(page, sWeather, typingInterval, nextStage);
         }
@@ -306,7 +308,7 @@
             }
         }
     });
-    
+    request_milpa_alta.send();
 
 </script>
 <script src="/static/js/liveStream.js"></script>
