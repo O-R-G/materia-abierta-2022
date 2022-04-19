@@ -12,15 +12,8 @@ var wH = window.innerHeight;
 var player_sky, player_server;
 var player_sky_w = 640;
 var player_sky_h = 360;
-if(wW > 500){
-	var player_server_w = 300;
-	var player_server_h = 300;
-}
-else
-{
-	var player_server_w = 180;
-	var player_server_h = 180;
-}
+var ratio_dev = 1.25;
+
 video_ratio = player_sky_h / player_sky_w;
 
 var play_server_isReady = false;
@@ -32,7 +25,10 @@ function onYouTubeIframeAPIReady() {
 	  videoId: 'phMtEWlGw_k',
 	  playerVars: {
 	    'playsinline': 1,
-	    'muted': 1
+	    'muted': 1,
+	    'showinfo': 0,
+	    'controls': 0,
+	    'modestbranding': 1
 	  },
 	  events: {
 	  	'onStateChange': onPlayerStateChange,
@@ -93,14 +89,14 @@ function centerLiveFeed(){
 	if(video_ratio < screen_ratio)
 	{
 		// console.log('screen is thinner');
-		sPlayer_sky.height = wH;
-		sPlayer_sky.width = wH / video_ratio;
+		sPlayer_sky.height = wH * ratio_dev;
+		sPlayer_sky.width = wH * ratio_dev / video_ratio;
 	}
 	else
 	{
 		// console.log('screen is wider');
-		sPlayer_sky.width = wW;
-		sPlayer_sky.height = wW * video_ratio;
+		sPlayer_sky.width = wW * ratio_dev;
+		sPlayer_sky.height = wW * ratio_dev * video_ratio;
 	}
 } 
 

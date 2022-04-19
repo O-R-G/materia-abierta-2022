@@ -4,8 +4,8 @@
     if($isHome)
     {
         $content_main = '<span id="content">';
-        $content_intro = '<span id="intro">';
-        $content_outro = '<span id="outro">';
+        $content_intro = '<div id="intro">';
+        $content_outro = '<div id="outro">';
         $temp = $oo->urls_to_ids( array($lang) );
         $children = $oo->children( end($temp) );
 
@@ -19,12 +19,27 @@
                     $content_main .= '<a class="section-title" onclick="requestPage(\''.$child['name1'].'\')">' . $child['name1'] . '</a> ' . $child['deck'] . ' ';
                 }
                 else if($child['url'] == 'intro')
-                    $content_intro .= $child['deck'] . '</span> ';
+                    $content_intro .= $child['deck'] . '</div> ';
                 else if($child['url'] == 'outro')
-                    $content_outro .= $child['deck'] . '</span> ';
+                    $content_outro .= $child['deck'] . '</div> ';
             }
         }
         $content = $content_intro . $content_main . '</span>' . $content_outro;
+        $logos = trim($item['notes']);
+        if(!empty($logos))
+            $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
+    }
+    else
+    {
+        $content .= '<span id="content">' . $item['body'] . '</span>';
+        $temp = $oo->urls_to_ids( array($lang) );
+        $children = $oo->children( end($temp) );
+        $menu_items = array();
+        foreach($children as $child)
+        {
+            if(substr($child['name1'], 0, 1) !== '.' && substr($child['name1'], 0, 1) !== '_')
+                $menu_items[] = $child;
+        }
     }
     
 ?>
@@ -48,6 +63,12 @@
             ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['name1']; ?>')"><?= $item['name1']; ?></a></div><?
         } ?>
     </div>
+</div>
+<div id="past-websites-container">
+    <a href="https://2019.materiaabierta.com" class="past-website sans">2019</a> <a href="https://2020.materiaabierta.com" class="past-website sans">2020</a> <a href="https://2021.materiaabierta.com" class="past-website sans">2021</a>
+</div>
+<div id="opencall-container">
+    <a download href="" class="sans">Download open call</a>
 </div>
 <script src="/static/js/weather.js"></script>
 <script>
@@ -151,7 +172,7 @@
                             if(request_page.responseText)
                             {
                                 sContent_container.classList.add('transition');
-                                sContent.innerHTML = request_page.responseText;
+                                sContent_container.innerHTML = request_page.responseText;
                                 console.log(request_page.responseText);
                                 window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
                                 setTimeout(function(){
