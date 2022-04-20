@@ -19,7 +19,8 @@ if($page != 'home')
 	$urls = array($lang, slug($page));
 	$ids = $oo->urls_to_ids($urls);
 	$id = end($ids);
-	$content = '<div id="content">' . $oo->get($id)['body'] . '</div>';
+    $item = $oo->get($id);
+	$content = '<div id="content">' . $item['body'] . '</div>';
     if( !empty( trim( $item['notes'] )))
         $content .= $item['notes'];
 	
