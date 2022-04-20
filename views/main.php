@@ -1,6 +1,8 @@
 <?
 // die();
     $content = '';
+    $link_pattern = '/(\<a\s.*?href\s*?=\s*?[\'"](.*?)[\'"].*?)\>/';
+    
     if($isHome)
     {
         $content_main = '<span id="content">';
@@ -45,7 +47,21 @@
                 $menu_items[] = $child;
         }
     }
-    
+
+    // adding _blank to external links
+    preg_match_all($link_pattern, $content, $temp);
+    if( !empty($temp) )
+    {
+        foreach($temp[2] as $key => $url)
+        {   
+            if(strpos($url, '2022.materiabierta.com') === false && substr($url, 0, 1) !== '/' && strpos($temp[1][$key], '_blank') === false )
+            {
+                $external_tag = $temp[1][$key] . ' target="_blank" >';
+                $content = str_replace($temp[0][$key], $external_tag, $content);
+            }
+        }
+    }
+    // die();
 ?>
 <header>
     <a id="title" onclick="requestPage('home')">Materia Abierta</a> / <span id="weather" class="sans"></span>
