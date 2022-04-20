@@ -2,8 +2,8 @@
 var body = document.body;
 var bodyClass = '';
 var r = document.querySelector(':root');
-var request_milpa_alta = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-var request_client = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+var request_weather = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+// var request_client = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 // var request_static_weather = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 var string_weather = '';
 // request_static_weather.onreadystatechange = function(){
@@ -21,19 +21,19 @@ var string_weather = '';
 // };
 // request_static_weather.open('GET', '/static/txt/weather.txt');
 
-request_milpa_alta.onreadystatechange = function(){
-	if (request_milpa_alta.readyState === 4) {
-		if (request_milpa_alta.status === 200) { 
+request_weather.onreadystatechange = function(){
+	if (request_weather.readyState === 4) {
+		if (request_weather.status === 200) { 
 			try{
-                var data_milpa_alta= JSON.parse(request_milpa_alta.responseText)['current'];
-				var isDay = data_milpa_alta['is_day'] != 0;
+                var data= JSON.parse(request_weather.responseText)['current'];
+				var isDay = data['is_day'] != 0;
 				bodyClass += isDay ? 'is_day' : 'is_night';
 				body.classList.add(bodyClass);
 				// console.log(r);
 				// console.log(data);
-				if(typeof data_milpa_alta['temp_c'] != 'undefined')
+				if(typeof data['temp_c'] != 'undefined')
 				{
-					let temp = data_milpa_alta['temp_c'];
+					let temp = data['temp_c'];
 					let temp_max = 76;
 					let temp_min = 38;
 					let hue =  (parseInt((temp - temp_min) / (temp_max - temp_min) * 360) + 180) % 360;
@@ -47,11 +47,11 @@ request_milpa_alta.onreadystatechange = function(){
 						var l = '10%';
 					}
 					r.style.setProperty('--background-color', 'hsl('+hue+', '+s+', '+l+')');
-					// string_weather = 'Currently ' + temp + '° C';
+					string_weather = temp + '° C';
 				}
-				if(typeof data_milpa_alta['humidity'] != 'undefined')
+				if(typeof data['humidity'] != 'undefined')
 				{
-					let humidity = data_milpa_alta['humidity'];
+					let humidity = data['humidity'];
 					let humidity_max = 100;
 					let humidity_min = 0;
 					let hue =  (parseInt((humidity - humidity_min) / (humidity_max - humidity_min) * 360) + 180) % 360;
@@ -66,9 +66,9 @@ request_milpa_alta.onreadystatechange = function(){
 					}
 					r.style.setProperty('--text-color', 'hsl('+hue+', '+s+', '+l+')');
 				}
-				if(typeof data_milpa_alta['wind_degree'] != 'undefined')
+				if(typeof data['wind_degree'] != 'undefined')
 				{
-					let wind_degree = data_milpa_alta['wind_degree'];
+					let wind_degree = data['wind_degree'];
 					let hue =  wind_degree % 360;
 
 					if(isDay){
@@ -83,49 +83,21 @@ request_milpa_alta.onreadystatechange = function(){
 					}
 					r.style.setProperty('--highlight-color', 'hsl('+hue+', '+s+', '+l+')');
 				}
-				// if(typeof data['condition'] != 'undefined' && typeof data['condition']['text'] != 'undefined')
-				// {
-				// 	if(string_weather != '')
-				// 		string_weather += '. ';
-				// 	string_weather += data['condition']['text'];
-				// }
-			}
-			catch(err){
-				request_static_weather.send();
-			}
-		}
-		else
-		{
-			// console.log('not 200');
-			request_static_weather.send();
-		}
-	}
-};
-request_client.onreadystatechange = function(){
-	if (request_client.readyState === 4) {
-		if (request_client.status === 200) { 
-			try{
-                var data_client = JSON.parse(request_client.responseText)['current'];
-				console.log('data_client = ');
-				console.log(data_client);
-				if(typeof data_client['temp_c'] != 'undefined')
+				if(typeof data['condition'] != 'undefined' && typeof data['condition']['text'] != 'undefined')
 				{
-					let temp = data_client['temp_c'];
-					string_weather = temp + '° C';
-				}
-				if(typeof data_client['condition'] != 'undefined' && typeof data_client['condition']['text'] != 'undefined')
-				{
+					console.log(data['condition']['text']);
 					if(string_weather != '')
 						string_weather += '. ';
-					string_weather += data_client['condition']['text'];
+					string_weather += data['condition']['text'] + '.';
 				}
-				clientWeather_isReady = true;
+				weather_isReady = true;
 				if(liveStream_isReady)
 					body.classList.remove('loading');
 			}
 			catch(err){
+				// console.log(err);
 				// request_static_weather.send();
-				clientWeather_isReady = true;
+				weather_isReady = true;
 		        if(liveStream_isReady)
 		            body.classList.remove('loading');
 			}
@@ -134,14 +106,57 @@ request_client.onreadystatechange = function(){
 		{
 			// console.log('not 200');
 			// request_static_weather.send();
-			clientWeather_isReady = true;
-	        if(liveStream_isReady)
-	            body.classList.remove('loading');
 		}
 	}
+	else
+	{
+		// console.log('not 4?');
+	}
 };
+// request_client.onreadystatechange = function(){
+// 	if (request_client.readyState === 4) {
+// 		if (request_client.status === 200) { 
+// 			try{
+//                 var data_client = JSON.parse(request_client.responseText)['current'];
+// 				console.log('data_client = ');
+// 				console.log(data_client);
+// 				if(typeof data_client['temp_c'] != 'undefined')
+// 				{
+// 					let temp = data_client['temp_c'];
+// 					string_weather = temp + '° C';
+// 				}
+// 				if(typeof data_client['condition'] != 'undefined' && typeof data_client['condition']['text'] != 'undefined')
+// 				{
+// 					if(string_weather != '')
+// 						string_weather += '. ';
+// 					string_weather += data_client['condition']['text'];
+// 				}
+// 				weather_isReady = true;
+// 				if(liveStream_isReady)
+// 					body.classList.remove('loading');
+// 			}
+// 			catch(err){
+// 				// request_static_weather.send();
+// 				weather_isReady = true;
+// 		        if(liveStream_isReady)
+// 		            body.classList.remove('loading');
+// 			}
+// 		}
+// 		else
+// 		{
+// 			// console.log('not 200');
+// 			// request_static_weather.send();
+// 			weather_isReady = true;
+// 	        if(liveStream_isReady)
+// 	            body.classList.remove('loading');
+// 		}
+// 	}
+// };
 // let request_url = location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
-var request_milpa_alta_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Milpa Alta&lang='+lang;
-var request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
-request_milpa_alta.open('GET', request_milpa_alta_url);
+var request_weather_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate+'&lang='+lang;
+// var request_weather_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City&lang='+lang;
+
+// console.log(request_weather_url);
+// var request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate+'&lang='+lang;
+request_weather.open('GET', request_weather_url);
 

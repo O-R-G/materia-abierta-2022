@@ -20,6 +20,8 @@ if($page != 'home')
 	$ids = $oo->urls_to_ids($urls);
 	$id = end($ids);
 	$content = '<div id="content">' . $oo->get($id)['body'] . '</div>';
+    if( !empty( trim( $item['notes'] )))
+        $content .= $item['notes'];
 	
 }
 else

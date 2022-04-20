@@ -581,4 +581,8 @@ body.es #opencall-container a:first-child {
 		width: 80%;
 	    min-width: 0;
 	}
+	#institutions-logos-container svg
+	{
+		width: 100%;
+	}
 }

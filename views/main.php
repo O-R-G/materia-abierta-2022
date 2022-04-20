@@ -32,7 +32,7 @@
     }
     else
     {
-        $content .= '<span id="content">' . $item['body'] . '</span>';
+        $content .= '<div id="content">' . $item['body'] . '</div>';
         if( !empty( trim( $item['notes'] )))
             $content .= $item['notes'];
         
@@ -81,8 +81,10 @@
     var body = document.body;
     var r = document.querySelector(':root');
     var latitude, longitude;
-    var clientWeather_isReady = false;
+    var weather_isReady = false;
     var liveStream_isReady = false;
+    var camera_coordinate = '19.4052191,-99.1833943';
+
 </script>
 <script src="/static/js/weather.js"></script>
 <script>
@@ -146,7 +148,7 @@
     var homeContent_full = '';
     var homeContent_sliced = {};
     var subpageContent = {};
-    var string_geolocation = '';
+    var string_geolocation = '19.4052191, -99.1833943';
     
     var match = [];
 
@@ -163,36 +165,36 @@
     var request_content = [];
 
     // geolocation
-    function geoSuccess(position){
-        // console.log('geoSuccess');
-        latitude  = position.coords.latitude;
-        longitude = position.coords.longitude;
-        string_geolocation = latitude + ', '+longitude;
-        request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
-        request_client.open('GET', request_client_url);
-        request_client.send();
-    }
-    function geoError(err){
-        // console.log('geoError');
-        // console.log(err);
-        sGeolocation.innerText = '';
-        clientWeather_isReady = true;
-        if(liveStream_isReady)
-            body.classList.remove('loading');
-    }
-    function initGeo(){
-        if(!navigator.geolocation) {
-            // console.log('no geolocation api');
-            sGeolocation.innerText = '';
-            clientWeather_isReady = true;
-            if(liveStream_isReady)
-                body.classList.remove('loading');
-        } else {
-            // console.log('locating . . .');
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-        }
-    }
-    initGeo();
+    // function geoSuccess(position){
+    //     // console.log('geoSuccess');
+    //     latitude  = position.coords.latitude;
+    //     longitude = position.coords.longitude;
+    //     string_geolocation = latitude + ', '+longitude;
+    //     request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate+'&lang='+lang;
+    //     request_client.open('GET', request_client_url);
+    //     request_client.send();
+    // }
+    // function geoError(err){
+    //     // console.log('geoError');
+    //     // console.log(err);
+    //     sGeolocation.innerText = '';
+    //     weather_isReady = true;
+    //     if(liveStream_isReady)
+    //         body.classList.remove('loading');
+    // }
+    // function initGeo(){
+    //     if(!navigator.geolocation) {
+    //         // console.log('no geolocation api');
+    //         sGeolocation.innerText = '';
+    //         weather_isReady = true;
+    //         if(liveStream_isReady)
+    //             body.classList.remove('loading');
+    //     } else {
+    //         // console.log('locating . . .');
+    //         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+    //     }
+    // }
+    // initGeo();
 
     // request page
     var requestPage_url = '/static/php/requestPage.php';
@@ -248,7 +250,7 @@
         if(currentStage == 0){
             document.body.setAttribute('loadingStage', currentStage +1);
             if(page === 'home'){
-                console.log(string_weather);
+                // console.log(string_weather);
                 typewriter(string_weather, sWeather, typingInterval, nextStage);
             }
             else
@@ -321,7 +323,7 @@
             }
         }
     });
-    request_milpa_alta.send();
+    request_weather.send();
 
 </script>
 <script src="/static/js/liveStream.js"></script>
