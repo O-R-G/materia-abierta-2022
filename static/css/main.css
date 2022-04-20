@@ -539,6 +539,11 @@ body.en #opencall-container a:last-child {
 body.es #opencall-container a:first-child {
 	display: none;
 }
+body.en .es,
+body.es .en
+{
+	display: none;
+}
 
 .footnote-container
 {

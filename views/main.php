@@ -54,7 +54,7 @@
     <div id="player-sky"></div>
 </div>
 <main id='content-container' class="transition"><?= $content; ?></main>
-<div id="geolocation" class="sans">Connecting . . .</div>
+<div id="geolocation" class="sans"><span class="en">Connecting . . .</span><span class="es">Cargando . . .</span></div>
 <div id="lang-toggle" class="sans"><a class="<?= $lang == 'en' ? 'active' : ''; ?>" href="/?lang=en">EN</a> / <a class="<?= $lang == 'es' ? 'active' : ''; ?>" href="/?lang=es">ES</a></div>
 <div id='clock'><canvas class='clock' datasrc="/static/pde/clock.pde"
     width="200" height="200" tabindex="0"
