@@ -56,5 +56,20 @@ else
         $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
 }
 
+// adding _blank to external links
+$link_pattern = '/(\<a\s.*?href\s*?=\s*?[\'"](.*?)[\'"].*?)\>/';
+preg_match_all($link_pattern, $content, $temp);
+if( !empty($temp) )
+{
+    foreach($temp[2] as $key => $url)
+    {   
+        if(strpos($url, '2022.materiabierta.com') === false && substr($url, 0, 1) !== '/' && strpos($temp[1][$key], '_blank') === false )
+        {
+            $external_tag = $temp[1][$key] . ' target="_blank" >';
+            $content = str_replace($temp[0][$key], $external_tag, $content);
+        }
+    }
+}
+
 echo $content;
 ?>

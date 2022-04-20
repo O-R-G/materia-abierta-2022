@@ -61,7 +61,6 @@
             }
         }
     }
-    // die();
 ?>
 <header>
     <a id="title" onclick="requestPage('home')">Materia Abierta</a> / <span id="weather" class="sans"></span>
