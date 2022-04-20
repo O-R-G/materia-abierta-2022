@@ -67,5 +67,14 @@ else
 		<link rel="stylesheet" href="/static/css/main.css">
 		<script src="/static/pde/processing-1.4.1.min.js"></script>
 		<!-- <script src="/static/js/ui.js"></script> -->
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138624239-1"></script>
+        <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'UA-138624239-1');
+        </script>
+        <!-- <base target="_blank"> -->
 	</head>
 	<body <?= !empty($body_class) ? 'class="' . $body_class . '"' : ''; ?> loadingStage="0">

@@ -529,6 +529,7 @@ body[loadingstage="0"] #consent-container
 #institutions-logos-container svg
 {
 	width: 400px;
+	margin: 0 auto;
 }
 #institutions-logos-container path{
 	fill: var(--text-color) !important;

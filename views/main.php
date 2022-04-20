@@ -77,7 +77,7 @@
     style="image-rendering: optimizeQuality !important;">
 </canvas></div>
 <div id="menu-container">
-    <div id="menu-btn" onclick="toggleMenu()" class="sans">MENU</div>
+    <div id="menu-btn" onclick="toggleMenu()" class="sans"><span class="en">MENU</span><span class="es">MENÚ</span></div>
     <div id="menu">
         <? foreach($menu_items as $item){
             ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['name1']; ?>')"><?= $item['name1']; ?></a></div><?
@@ -169,8 +169,8 @@
     var match = [];
 
     var fadeInDuration = 500;
-    var stageDelay = 1000;
-    var typingInterval = isTest ? 10 : 100;
+    var stageDelay = 500;
+    var typingInterval = isTest ? 10 : 50;
     var typewriterIntervalObj = null;
     if(window.innerWidth > 500)
         var sizer = 220;
