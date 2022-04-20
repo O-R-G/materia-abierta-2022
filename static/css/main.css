@@ -314,11 +314,13 @@ img {
 	display: none;
 }
 
-.sans {
+.sans,
+.sans > a {
 	font-family: helvetica, sans-serif;
     font-weight: bold;
     font-size: 15px;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 /* menu */
@@ -538,6 +540,25 @@ body.es #opencall-container a:first-child {
 	display: none;
 }
 
+.footnote-container
+{
+	list-style: none;
+    margin: 0;
+    padding-left: 11px;
+    font-size: 15px;
+    width: 75%;
+    min-width: 300px;
+    margin-top: 72px;
+}
+.footnote-item
+{
+	text-indent: -11px;
+}
+.footnote-item > sup:first-child
+{
+	margin-right: 3px;
+}
+
 @media screen and (max-width: 500px)
 {   
 	body {
@@ -554,5 +575,10 @@ body.es #opencall-container a:first-child {
 	.sans
 	{
 		font-size: 13px;
+	}
+	.footnote-container
+	{
+		width: 80%;
+	    min-width: 0;
 	}
 }

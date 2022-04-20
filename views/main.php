@@ -33,6 +33,9 @@
     else
     {
         $content .= '<span id="content">' . $item['body'] . '</span>';
+        if( !empty( trim( $item['notes'] )))
+            $content .= $item['notes'];
+        
         $temp = $oo->urls_to_ids( array($lang) );
         $children = $oo->children( end($temp) );
         $menu_items = array();
@@ -66,7 +69,7 @@
     </div>
 </div>
 <div id="past-websites-container">
-    <a href="https://2019.materiaabierta.com" class="past-website sans">2019</a> <a href="https://2020.materiaabierta.com" class="past-website sans">2020</a> <a href="https://2021.materiaabierta.com" class="past-website sans">2021</a>
+    <a href="https://2019.materiaabierta.com" class="past-website sans" target="_blank">2019</a> <a href="https://2020.materiaabierta.com" class="past-website sans" target="_blank">2020</a> <a href="https://2021.materiaabierta.com" class="past-website sans" target="_blank">2021</a>
 </div>
 <div id="opencall-container" class="sans">
     <?= $opencall_links; ?>

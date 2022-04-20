@@ -53,6 +53,17 @@ else
 		<title><? echo $site; ?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="description" content="Materia Abierta es una escuela de verano sobre teoría, arte y tecnología establecida en la Ciudad de México.">
+        <meta name="og:image" content="/media/jpg/og.jpg" />
+        <meta name="og:type" content="website" />
+        <meta name="og:title" content="Materia Abierta 2022" />
+        <meta name="og:url" content="https://materiaabierta.com" />
+        <meta name="og:description" content="Materia Abierta es una escuela de verano sobre teoría, arte y tecnología establecida en la Ciudad de México." />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Materia Abierta 2022" />
+        <meta name="twitter:site" content="materiaabierta.com" />
+        <meta name="twitter:description" content="Materia Abierta es una escuela de verano sobre teoría, arte y tecnología establecida en la Ciudad de México." />
+        <meta name="twitter:image" content="https://2022.materiaabierta.com/media/jpg/og.jpg" />
 		<link rel="stylesheet" href="/static/css/main.css">
 		<script src="/static/pde/processing-1.4.1.min.js"></script>
 		<!-- <script src="/static/js/ui.js"></script> -->
