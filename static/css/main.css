@@ -530,6 +530,7 @@ body[loadingstage="0"] #consent-container
 {
 	width: 400px;
 	margin: 0 auto;
+	display: block;
 }
 #institutions-logos-container path{
 	fill: var(--text-color) !important;

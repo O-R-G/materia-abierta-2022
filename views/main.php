@@ -50,12 +50,9 @@
 
     // adding _blank to external links
     preg_match_all($link_pattern, $content, $temp);
-    if( !empty($temp) )
-    {
-        foreach($temp[2] as $key => $url)
-        {   
-            if(strpos($url, '2022.materiabierta.com') === false && substr($url, 0, 1) !== '/' && strpos($temp[1][$key], '_blank') === false )
-            {
+    if( !empty($temp) ) {
+        foreach($temp[2] as $key => $url) {   
+            if(strpos($url, '2022.materiabierta.com') === false && substr($url, 0, 1) !== '/' && strpos($temp[1][$key], '_blank') === false ) {
                 $external_tag = $temp[1][$key] . ' target="_blank" >';
                 $content = str_replace($temp[0][$key], $external_tag, $content);
             }
@@ -179,100 +176,66 @@
     var loadedCount = 0;
     var request_content = [];
 
-    // geolocation
-    // function geoSuccess(position){
-    //     // console.log('geoSuccess');
-    //     latitude  = position.coords.latitude;
-    //     longitude = position.coords.longitude;
-    //     string_geolocation = latitude + ', '+longitude;
-    //     request_client_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate+'&lang='+lang;
-    //     request_client.open('GET', request_client_url);
-    //     request_client.send();
-    // }
-    // function geoError(err){
-    //     // console.log('geoError');
-    //     // console.log(err);
-    //     sGeolocation.innerText = '';
-    //     weather_isReady = true;
-    //     if(liveStream_isReady)
-    //         body.classList.remove('loading');
-    // }
-    // function initGeo(){
-    //     if(!navigator.geolocation) {
-    //         // console.log('no geolocation api');
-    //         sGeolocation.innerText = '';
-    //         weather_isReady = true;
-    //         if(liveStream_isReady)
-    //             body.classList.remove('loading');
-    //     } else {
-    //         // console.log('locating . . .');
-    //         navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-    //     }
-    // }
-    // initGeo();
-
     // request page
     var requestPage_url = '/static/php/requestPage.php';
     function requestPage(target="home"){
-
         if (window.XMLHttpRequest || bActiveX) { // IE7+, FF and Chrome
+            if(body.getAttribute('loadingstage') == 3)
+            {
+                let target_lowercased = target.toLowerCase();
+                page = target_lowercased;
+                var pathUrl = '/?lang='+lang+'&page='+page;
+                var request_page = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                request_page.onreadystatechange = function(){
+                    if (request_page.readyState === 4) {
+                        if (request_page.status === 200) { 
+                            try{
+                                if(request_page.responseText)
+                                {
+                                    sContent_container.classList.add('transition');
+                                    sContent_container.innerHTML = request_page.responseText;
+                                    window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
+                                    setTimeout(function(){
+                                        sContent_container.classList.remove('transition');
+                                        
+                                        if(page == 'home'){
+                                            if( !body.classList.contains('loading') )
+                                                typewriter(string_weather, sWeather, typingInterval);
+                                            body.classList.remove('subpage');
+                                        }
+                                        else{
+                                            if( !body.classList.contains('loading') )
+                                                typewriter(target, sWeather, typingInterval);
+                                            body.classList.add('subpage');
+                                        }
+                                        body.classList.remove('viewing-menu')
 
-            let target_lowercased = target.toLowerCase();
-            page = target_lowercased;
-            var pathUrl = '/?lang='+lang+'&page='+page;
-            // window.history.pushState({"html":homeContent_full, "lang":lang, "page":target},"", '/?lang='+lang);
-            // window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
-            var request_page = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            request_page.onreadystatechange = function(){
-                if (request_page.readyState === 4) {
-                    if (request_page.status === 200) { 
-                        try{
-                            if(request_page.responseText)
-                            {
-                                sContent_container.classList.add('transition');
-                                sContent_container.innerHTML = request_page.responseText;
-                                // console.log(request_page.responseText);
-                                window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
-                                setTimeout(function(){
-                                    sContent_container.classList.remove('transition');
-                                    if( !body.classList.contains('loading') )
-                                        typewriter(target, sWeather, typingInterval);
-                                    if(page == 'home')
-                                        body.classList.remove('subpage');
-                                    else
-                                        body.classList.add('subpage');
-                                    body.classList.remove('viewing-menu')
-
-                                }, 0);
+                                    }, 0);
+                                }
+                            }
+                            catch(err){
+                                console.log(err);
                             }
                         }
-                        catch(err){
-                            console.log(err);
-                        }
+                        // else console.log('request_page.status !== 200');
                     }
-                    // else console.log('request_page.status !== 200');
-                }
-                // else console.log('request_page.readyState !== 4');
-            };
-            let request_page_body = {"page":page, "lang":lang};
-            request_page.open('POST', requestPage_url);
-            request_page.send(JSON.stringify(request_page_body));
-            
+                    // else console.log('request_page.readyState !== 4');
+                };
+                let request_page_body = {"page":page, "lang":lang};
+                request_page.open('POST', requestPage_url);
+                request_page.send(JSON.stringify(request_page_body));
+            }
         }
     }
     function nextStage(){
         let currentStage = parseInt(document.body.getAttribute('loadingStage'));
-        if(currentStage == 0){
+        if(currentStage == 0) {
             document.body.setAttribute('loadingStage', currentStage +1);
-            if(page === 'home'){
-                // console.log(string_weather);
+            if(page === 'home')
                 typewriter(string_weather, sWeather, typingInterval, nextStage);
-            }
             else
                 typewriter(page, sWeather, typingInterval, nextStage);
-        }
-        else
-        {
+        } else {
             setTimeout(function(){
                 if(currentStage == 1)
                 {
