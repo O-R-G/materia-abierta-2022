@@ -47,6 +47,9 @@ if($isHome)
 else
     $body_class .= ' subpage';
 
+
+$site = 'Materia Abierta';
+
 ?><!DOCTYPE html>
 <html>
 	<head>

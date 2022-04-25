@@ -31,6 +31,10 @@
         if(!empty($logos))
             $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
         $opencall_links = trim($item['body']);
+        $liveStreamId_pattern = '/\[liveStreamId\]\((.*)\)/';
+        preg_match($liveStreamId_pattern, $item['deck'], $temp);
+        if(!empty($temp) && !empty($temp[0]))
+            $liveStreamId = $temp[1];
     }
     else
     {
@@ -95,6 +99,7 @@
     var latitude, longitude;
     var weather_isReady = false;
     var liveStream_isReady = false;
+    var liveStreamId = '<?= isset($liveStreamId) ? $liveStreamId : false; ?>';
     var camera_coordinate = '19.4052191,-99.1833943';
 
 </script>

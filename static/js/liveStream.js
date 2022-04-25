@@ -18,45 +18,33 @@ video_ratio = player_sky_h / player_sky_w;
 
 var play_server_isReady = false;
 
-function onYouTubeIframeAPIReady() {
-	player_sky = new YT.Player('player-sky', {
-	  height: player_sky_h,
-	  width: player_sky_w,
-	  videoId: 'phMtEWlGw_k',
-	  playerVars: {
-	    'playsinline': 1,
-	    'muted': 1,
-	    'showinfo': 0,
-	    'controls': 0,
-	    'modestbranding': 1
-	  },
-	  events: {
-	  	'onStateChange': onPlayerStateChange,
-	  	// 'onReady': onPlayerReady
-	    
-	  }
-	});
-
-	// player_server = new YT.Player('player-server', {
-	//   height: player_server_h,
-	//   width: player_server_w,
-	//   videoId: '14rWLXOvpWo',
-	//   playerVars: {
-	//     'playsinline': 1,
-	//     'muted': 1
-	//   },
-	//   events: {
-	//   	'onReady': onPlayerServerReady,
-	//     'onStateChange': onPlayerServerStateChange
-	//   }
-	// });
+if(liveStreamId != 'false')
+{
+	function onYouTubeIframeAPIReady() {
+		player_sky = new YT.Player('player-sky', {
+		  height: player_sky_h,
+		  width: player_sky_w,
+		  videoId: liveStreamId,
+		  playerVars: {
+		    'playsinline': 1,
+		    'muted': 1,
+		    'showinfo': 0,
+		    'controls': 0,
+		    'modestbranding': 1,
+		    'loop': 1
+		  },
+		  events: {
+		  	'onStateChange': onPlayerStateChange,
+		  	// 'onReady': onPlayerReady
+		    
+		  }
+		});
+	}
 }
+
+
 
 // 4. The API will call this function when the video player is ready.
-function onPlayerServerReady(event) {
-	console.log("onPlayerServerReady");
-	body.classList.remove('loading-player-server');
-}
 var played = false;
 function onPlayerStateChange(event) {
 	if (event.data == YT.PlayerState.PLAYING && !played) {
