@@ -107,12 +107,55 @@
     var weather_isReady = false;
     var liveStream_isReady = false;
     var liveStreamId = '<?= isset($liveStreamId) ? $liveStreamId : false; ?>';
-    var camera_coordinate = '19.4052191,-99.1833943';
-
+    var camera_coordinate = [19.4052191,-99.1833943];
+    var distance = false;
 </script>
 <script src="/static/js/weather.js"></script>
 <script>
-    
+    // geolocation
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+        ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        return d;
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    }
+    function geoSuccess(position){
+        // console.log('geoSuccess');
+        latitude  = position.coords.latitude;
+        longitude = position.coords.longitude;
+        console.log(camera_coordinate);
+        console.log(latitude, longitude);
+        distance = getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1]);
+        console.log(distance);
+        
+    }
+    function geoError(err){
+        console.log('geoError');
+        console.log(err);
+        // sGeolocation.innerText = '';
+    }
+    function initGeo(){
+        console.log('initGeo');
+        if(!navigator.geolocation) {
+            console.log('no geolocation api');
+            // sGeolocation.innerText = '';
+        } else {
+            // console.log('locating . . .');
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+        }
+    }
+    initGeo();
     var filenames_all = {
         'en':[
             'Open Call 2022',

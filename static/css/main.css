@@ -17,16 +17,12 @@ body, table, tr, td, h1, h2, h3, h4, h5, h6 {
 }
 body {
 	margin: 0;
-	padding: 20px 60px 90px 60px;
+	/*padding: 20px 60px 90px 60px;*/
     font-size: 21px;
     /*background-color: #F07636;*/
     /*color: #07FE92;*/
     color: var(--text-color);
     /*background-color: var(--background-color);*/
-}
-body.subpage
-{
-	padding-bottom: 300px;
 }
 a,
 a:link,
@@ -368,6 +364,10 @@ img {
 	width: 100vw;
 	height: 100vh;
 }
+header
+{
+	padding: 20px 60px 0 60px;
+}
 .viewing-menu header
 {
 	display: none;
@@ -398,6 +398,11 @@ img {
 #content-container
 {
 	transition: opacity .5s;
+	padding: 0px 60px 90px 60px;
+}
+.subpage #content-container
+{
+	padding-bottom: 300px;
 }
 #content-container.transition
 {
@@ -572,7 +577,10 @@ body.es .en
 {
 	margin-right: 3px;
 }
-
+iframe body
+{
+	padding: 0;
+}
 @media screen and (max-width: 500px)
 {   
 	body {

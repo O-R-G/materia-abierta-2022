@@ -153,7 +153,7 @@ request_weather.onreadystatechange = function(){
 // 	}
 // };
 // let request_url = location.protocol + '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+latitude+','+longitude+'&lang='+lang;
-var request_weather_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate+'&lang='+lang;
+var request_weather_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q='+camera_coordinate[0] + ','+camera_coordinate[1]+'&lang='+lang;
 // var request_weather_url = '//api.weatherapi.com/v1/current.json?key=5262904081d248dc9d6134509221701&q=Mexico City&lang='+lang;
 
 // console.log(request_weather_url);
