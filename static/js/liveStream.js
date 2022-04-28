@@ -31,7 +31,9 @@ if(liveStreamId != 'false')
 		    'showinfo': 0,
 		    'controls': 0,
 		    'modestbranding': 1,
-		    'loop': 1
+		    'loop': 1,
+		    'playlist': liveStreamId,
+		    'rel': 0
 		  },
 		  events: {
 		  	'onStateChange': onPlayerStateChange,

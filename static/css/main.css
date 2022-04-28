@@ -548,6 +548,12 @@ body.es .en
 	display: none;
 }
 
+.bio-anchor
+{
+	padding-top: 30px;
+	margin-top: -30px;
+}
+
 .footnote-container
 {
 	list-style: none;

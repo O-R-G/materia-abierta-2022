@@ -2,6 +2,7 @@
 // die();
     $content = '';
     $link_pattern = '/(\<a\s.*?href\s*?=\s*?[\'"](.*?)[\'"].*?)\>/';
+    $liveStreamId_pattern = '/\[liveStreamId\]\((.*)\)/';
     
     if($isHome)
     {
@@ -31,7 +32,7 @@
         if(!empty($logos))
             $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
         $opencall_links = trim($item['body']);
-        $liveStreamId_pattern = '/\[liveStreamId\]\((.*)\)/';
+        
         preg_match($liveStreamId_pattern, $item['deck'], $temp);
         if(!empty($temp) && !empty($temp[0]))
             $liveStreamId = $temp[1];
@@ -50,6 +51,12 @@
             if(substr($child['name1'], 0, 1) !== '.' && substr($child['name1'], 0, 1) !== '_')
                 $menu_items[] = $child;
         }
+
+        $temp = $oo->urls_to_ids(array('home'));
+        $home_item = $oo->get(end($temp));
+        preg_match($liveStreamId_pattern, $home_item['deck'], $temp);
+        if(!empty($temp) && !empty($temp[0]))
+            $liveStreamId = $temp[1];
     }
 
     // adding _blank to external links
@@ -183,7 +190,7 @@
 
     // request page
     var requestPage_url = '/static/php/requestPage.php';
-    function requestPage(target="home"){
+    function requestPage(target="home", hash=''){
         if (window.XMLHttpRequest || bActiveX) { // IE7+, FF and Chrome
             if(body.getAttribute('loadingstage') == 3)
             {
@@ -214,7 +221,8 @@
                                             body.classList.add('subpage');
                                         }
                                         body.classList.remove('viewing-menu')
-
+                                        if(hash !== '')
+                                            location.hash = "#" + hash;
                                     }, 0);
                                 }
                             }
