@@ -1,5 +1,4 @@
 <?
-// die();
     $content = '';
     $link_pattern = '/(\<a\s.*?href\s*?=\s*?[\'"](.*?)[\'"].*?)\>/';
     $liveStreamId_pattern = '/\[liveStreamId\]\((.*)\)/';
@@ -108,6 +107,7 @@
     var liveStream_isReady = false;
     var liveStreamId = '<?= isset($liveStreamId) ? $liveStreamId : false; ?>';
     var camera_coordinate = [19.4052191,-99.1833943];
+    var showDistance = <?= json_encode($showDistance); ?>;
     var distance = false;
 </script>
 <script src="/static/js/weather.js"></script>
@@ -137,6 +137,7 @@
         console.log(camera_coordinate);
         console.log(latitude, longitude);
         distance = getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1]);
+        string_geolocation += '. '+distance+'km from where you are.'
         console.log(distance);
         
     }
@@ -155,7 +156,8 @@
             navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
         }
     }
-    // initGeo();
+    if(showDistance)
+        initGeo();
     var filenames_all = {
         'en':[
             'Open Call 2022',

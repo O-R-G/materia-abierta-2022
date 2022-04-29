@@ -577,10 +577,7 @@ body.es .en
 {
 	margin-right: 3px;
 }
-iframe body
-{
-	padding: 0;
-}
+
 @media screen and (max-width: 500px)
 {   
 	body {

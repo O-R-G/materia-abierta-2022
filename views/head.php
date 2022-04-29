@@ -15,6 +15,7 @@ $uu = new URL();
 
 $lang = isset($_GET['lang']) ? $_GET['lang'] : 'en';
 $page = isset($_GET['page']) ? urldecode($_GET['page']) : 'home';
+$showDistance = isset($_GET['showDistance']);
 $isHome = $page === 'home';
 
 if($isHome){
