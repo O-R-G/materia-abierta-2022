@@ -136,7 +136,7 @@
         longitude = position.coords.longitude;
         console.log(camera_coordinate);
         console.log(latitude, longitude);
-        distance = getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1]);
+        distance = Math.round(100 * getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1])) / 100;
         string_geolocation += '. '+distance+'km from where you are.'
         console.log(distance);
         
