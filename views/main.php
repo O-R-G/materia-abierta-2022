@@ -164,8 +164,8 @@
             navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
         }
     }
-    if(showDistance)
-        initGeo();
+    // if(showDistance)
+    initGeo();
     var filenames_all = {
         'en':[
             'Open Call 2022',
