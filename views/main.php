@@ -138,9 +138,9 @@
         console.log(latitude, longitude);
         distance = Math.round(100 * getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1])) / 100;
         if(lang == 'en')
-            var string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and *'+distance+' kilometers* from where *you* are.</i></div>';
+            var string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
         else
-            var string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and *'+distance+' kilometers* from where *you* are.</i></div>';
+            var string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
         var sOutro = document.getElementById('outro');
 
         sOutro.innerHTML = string_outro;
