@@ -109,6 +109,7 @@
     var camera_coordinate = [19.4052191,-99.1833943];
     var showDistance = <?= json_encode($showDistance); ?>;
     var distance = false;
+    var string_outro = '';
 </script>
 <script src="/static/js/weather.js"></script>
 <script>
@@ -138,16 +139,11 @@
         console.log(latitude, longitude);
         distance = Math.round(100 * getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1])) / 100;
         if(lang == 'en')
-            var string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
+            string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
         else
-            var string_outro = '<div><i>El fondo de esta página web es una transmisión en vivo del cielo justo arriba de las oficinas de Materia Abierta aproximadamente a 45 kilómetros de </i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a>, México, y a '+distance+' kilómetros de donde *tú* estás.</i></div>';
+            string_outro = '<div><i>El fondo de esta página web es una transmisión en vivo del cielo justo arriba de las oficinas de Materia Abierta aproximadamente a 45 kilómetros de </i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a>, México, y a '+distance+' kilómetros de donde *tú* estás.</i></div>';
         var sOutro = document.getElementById('outro');
-
-        sOutro.innerHTML = string_outro;
-        console.log(sOutro);
-        // string_geolocation += '. '+distance+'km from where you are.'
-        console.log(distance);
-        
+        if(sOutro) sOutro.innerHTML = string_outro;
     }
     function geoError(err){
         console.log('geoError');
@@ -264,6 +260,8 @@
                                         sContent_container.classList.remove('transition');
                                         
                                         if(page == 'home'){
+                                            if(string_outro !== '')
+                                                document.getElementById('outro').innerHTML = string_outro;
                                             if( !body.classList.contains('loading') )
                                                 typewriter(string_weather, sWeather, typingInterval);
                                             body.classList.remove('subpage');
