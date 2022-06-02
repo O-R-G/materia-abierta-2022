@@ -275,6 +275,7 @@
                                         body.classList.remove('viewing-menu')
                                         if(hash !== '')
                                             location.hash = "#" + hash;
+                                        window.scrollTo(0, 0);
                                     }, 0);
                                 }
                             }
