@@ -130,13 +130,17 @@ form, input {
 	transform: translate(-50%, -50%) rotate(-90deg);
 	transition: opacity .15s;
 }
-#opencall-container
+#bottom-fixed-container
 {
 	position: fixed;
 	left: 50%;
 	bottom: 20px;
 	transform: translate(-50%, 0);
 	transition: opacity .15s;
+}
+#bottom-fixed-container > div
+{
+	display: inline-block;
 }
 img {
     display: block;
@@ -423,7 +427,7 @@ body[loadingstage="0"] #content,
 body[loadingstage="0"] #intro,
 body[loadingstage="0"] #outro,
 body[loadingstage="0"] #past-websites-container,
-body[loadingstage="0"] #opencall-container
+body[loadingstage="0"] #bottom-fixed-container
 {
 	opacity: 0;
 	pointer-events: none;
@@ -435,7 +439,7 @@ body[loadingstage="1"] #content,
 body[loadingstage="1"] #intro,
 body[loadingstage="1"] #outro,
 body[loadingstage="1"] #past-websites-container,
-body[loadingstage="1"] #opencall-container
+body[loadingstage="1"] #bottom-fixed-container
 {
 	opacity: 0;
 	pointer-events: none;
@@ -446,7 +450,7 @@ body[loadingstage="2"] #content,
 body[loadingstage="2"] #intro,
 body[loadingstage="2"] #outro,
 body[loadingstage="2"] #past-websites-container,
-body[loadingstage="2"] #opencall-container
+body[loadingstage="2"] #bottom-fixed-container
 {
 	opacity: 0;
 	pointer-events: none;
@@ -541,10 +545,8 @@ body[loadingstage="0"] #consent-container
 	fill: var(--text-color) !important;
 }
 
-body.en #opencall-container a:last-child {
-	display: none;
-}
-body.es #opencall-container a:first-child {
+body.en #bottom-fixed-container #es-download-opencall,
+body.es #bottom-fixed-container #en-download-opencall {
 	display: none;
 }
 body.en .es,
@@ -576,6 +578,11 @@ body.es .en
 .footnote-item > sup:first-child
 {
 	margin-right: 3px;
+}
+
+ul
+{
+	margin: 0;
 }
 
 @media screen and (max-width: 500px)

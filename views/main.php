@@ -30,7 +30,7 @@
         $logos = trim($item['notes']);
         if(!empty($logos))
             $content .= '<div id="institutions-logos-container">'.$logos.'</div>';
-        $opencall_links = trim($item['body']);
+        $bottom_links = trim($item['body']);
         
         preg_match($liveStreamId_pattern, $item['deck'], $temp);
         if(!empty($temp) && !empty($temp[0]))
@@ -56,6 +56,7 @@
         preg_match($liveStreamId_pattern, $home_item['deck'], $temp);
         if(!empty($temp) && !empty($temp[0]))
             $liveStreamId = $temp[1];
+        $bottom_links = trim($home_item['body']);
     }
 
     // adding _blank to external links
@@ -93,8 +94,8 @@
 <div id="past-websites-container">
     <a href="https://2019.materiaabierta.com" class="past-website sans" target="_blank">2019</a> <a href="https://2020.materiaabierta.com" class="past-website sans" target="_blank">2020</a> <a href="https://2021.materiaabierta.com" class="past-website sans" target="_blank">2021</a>
 </div>
-<div id="opencall-container" class="sans">
-    <?= $opencall_links; ?>
+<div id="bottom-fixed-container" class="sans">
+    <?= $bottom_links; ?>
 </div>
 <script>
     var lang = '<?= $lang; ?>';
