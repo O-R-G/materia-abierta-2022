@@ -13,7 +13,19 @@ $data = json_decode(file_get_contents('php://input'), true);
 $page = $data['page'];
 $lang = $data['lang'];
 
+$name = '';
 $content = '';
+
+function trim_prefixes($page_name) {
+    $page_name = ltrim($page_name, '.');
+    $page_name = ltrim($page_name, '-');
+    $page_name = ltrim($page_name, '~');
+    $page_name = ltrim($page_name, '+');
+    $page_name = ltrim($page_name, '>');
+    $page_name = ltrim($page_name, '!');
+    return $page_name;
+}
+
 if($page != 'home')
 {
 	$urls = array($lang, slug($page));
@@ -23,6 +35,7 @@ if($page != 'home')
 	$content = '<div id="content">' . $item['body'] . '</div>';
     if( !empty( trim( $item['notes'] )))
         $content .= $item['notes'];
+    $name = $item['name1'];
 	
 }
 else
@@ -34,7 +47,7 @@ else
 	$item = $oo->get( end($temp) );
     $temp = $oo->urls_to_ids( array($lang) );
     $children = $oo->children( end($temp) );
-
+    $name = 'home';
     // $menu_items = array();
     foreach($children as $child)
     {
@@ -48,6 +61,7 @@ else
                 $content_intro .= $child['deck'] . '</div> ';
             else if($child['url'] == 'outro')
                 $content_outro .= $child['deck'] . '</div> ';
+            
         }
     }
     $content = $content_intro . $content_main . '</span>' . $content_outro;
@@ -70,6 +84,10 @@ if( !empty($temp) )
         }
     }
 }
+$output = array(
+    'name' => trim_prefixes($name),
+    'body' => $content
+);
 
-echo $content;
+echo json_encode($output, true);
 ?>

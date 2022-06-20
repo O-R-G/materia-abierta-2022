@@ -254,12 +254,12 @@
                             try{
                                 if(request_page.responseText)
                                 {
+                                    var data = JSON.parse(request_page.responseText);
                                     sContent_container.classList.add('transition');
-                                    sContent_container.innerHTML = request_page.responseText;
+                                    sContent_container.innerHTML = data['body'];
                                     window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
                                     setTimeout(function(){
                                         sContent_container.classList.remove('transition');
-                                        
                                         if(page == 'home'){
                                             if(string_outro !== '')
                                                 document.getElementById('outro').innerHTML = string_outro;
@@ -269,7 +269,7 @@
                                         }
                                         else{
                                             if( !body.classList.contains('loading') )
-                                                typewriter(target, sWeather, typingInterval);
+                                                typewriter(data['name'], sWeather, typingInterval);
                                             body.classList.add('subpage');
                                         }
                                         body.classList.remove('viewing-menu')
