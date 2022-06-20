@@ -89,7 +89,14 @@
     <div id="menu-btn" onclick="toggleMenu()" class="sans"><span class="en">MENU</span><span class="es">MENÚ</span></div>
     <div id="menu">
         <? foreach($menu_items as $item){
-            ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['name1']; ?>')"><?= $item['name1']; ?></a></div><?
+            if( $item['url'] == 'donate' || $item['url'] == 'donar')
+            {
+                ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['url']; ?>')"><?= $item['name1']; ?></a></div><?
+            }
+            else
+            {
+                ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['name1']; ?>')"><?= $item['name1']; ?></a></div><?
+            }
         } ?>
     </div>
 </div>
