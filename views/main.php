@@ -16,9 +16,11 @@
         {
             if(substr($child['name1'], 0, 1) !== '.')
             {
-                if(substr($child['name1'], 0, 1) !== '_'){
+                if(substr($child['name1'], 0, 1) !== '_')
+                {
                     $menu_items[] = $child;
-                    $content_main .= '<a class="section-title" onclick="requestPage(\''.$child['name1'].'\')">' . $child['name1'] . '</a> ' . $child['deck'] . ' ';
+                    if(strpos('[hiddenFromHomepage]', $child['deck']) === false)
+                        $content_main .= '<a class="section-title" onclick="requestPage(\''.$child['name1'].'\')">' . $child['name1'] . '</a> ' . $child['deck'] . ' ';
                 }
                 else if($child['url'] == 'intro')
                     $content_intro .= $child['deck'] . '</div> ';
@@ -140,19 +142,19 @@
         console.log(latitude, longitude);
         distance = Math.round(100 * getDistanceFromLatLonInKm(latitude, longitude, camera_coordinate[0], camera_coordinate[1])) / 100;
         if(lang == 'en')
-            string_outro = '<div><i>The background of this web page is a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a></i>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
+            string_outro = '<div><i>As the call for applications was open (from April 20 to May 29, 2022) the background of this web page was a live feed of the sky right above Materia Abierta’s offices approximately 45 kilometers from </i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9" target="_blank">Milpa Alta</a>, Mexico, and '+distance+' kilometers from where *you* are.</i></div>';
         else
-            string_outro = '<div><i>El fondo de esta página web es una transmisión en vivo del cielo justo arriba de las oficinas de Materia Abierta aproximadamente a 45 kilómetros de </i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9">Milpa Alta</a>, México, y a '+distance+' kilómetros de donde *tú* estás.</i></div>';
+            string_outro = '<div><i>Conforme la convocatoria estuvo abierta (del 20 de abril al 29 de mayo de 2022) el fondo de esta página web era una transmisión en vivo del cielo justo encima de las oficinas de Materia Abierta aproximadamente a 45 kilómetros de </i><i><a href="https://goo.gl/maps/PiwqMPf9Edfyp7Zm9" target="_blank">Milpa Alta</a>, México, y a '+distance+' kilómetros de donde *tú* estás.</i></div>';
         var sOutro = document.getElementById('outro');
         if(sOutro) sOutro.innerHTML = string_outro;
     }
     function geoError(err){
         console.log('geoError');
-        console.log(err);
+        // console.log(err);
         // sGeolocation.innerText = '';
     }
     function initGeo(){
-        console.log('initGeo');
+        // console.log('initGeo');
         if(!navigator.geolocation) {
             console.log('no geolocation api');
             // sGeolocation.innerText = '';
@@ -163,39 +165,6 @@
     }
     // if(showDistance)
     initGeo();
-    var filenames_all = {
-        'en':[
-            'Open Call 2022',
-            'The Rise of the Coyote',
-            'Milpa Alta and Xochimilco',
-            'Curatorial text',
-            'Program',
-            'Tutors',
-            'Participants',
-            'Cost',
-            'Calendar',
-            'Application',
-            'Credits',
-            'Contact',
-            'Bios'
-        ],
-        'es':[
-            'Convocatoria 2022',
-            'La rebelión del coyote',
-            'Milpa Alta y Xochimilco',
-            'Resumen curatorial',
-            'Programa',
-            'Docentes',
-            'Participantes',
-            'Costo',
-            'Calendario',
-            'Aplicación',
-            'Créditos',
-            'Contacto',
-            'Semblanzas'
-        ]
-    };
-    var filenames = filenames_all[lang];
 
     // menu
     function toggleMenu(){

@@ -1,4 +1,5 @@
 // lang
+console.log('general.js');
 let searchParams = new URLSearchParams(window.location.search);
 var lang = searchParams.get('lang') !== null ? searchParams.get('lang') : 'es';
 var page = searchParams.get('page') !== null ? searchParams.get('page') : 'home';
