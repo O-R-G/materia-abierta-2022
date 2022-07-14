@@ -330,7 +330,8 @@
         // console.log(e);
         if(e.state){
             sContent = document.getElementById('content');
-            sContent.innerHTML = e.state.html;
+            console.log();
+            sContent.innerHTML = JSON.parse(e.state.html).body;
             lang = e.state.lang;
             page = e.state.page;
             if(page !== 'home'){
