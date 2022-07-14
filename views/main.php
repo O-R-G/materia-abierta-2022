@@ -12,6 +12,7 @@
         $children = $oo->children( end($temp) );
 
         $menu_items = array();
+        $urls_to_names = array();
         foreach($children as $child)
         {
             if(substr($child['name1'], 0, 1) !== '.')
@@ -20,7 +21,8 @@
                 {
                     $menu_items[] = $child;
                     if(strpos('[hiddenFromHomepage]', $child['deck']) === false)
-                        $content_main .= '<a class="section-title" onclick="requestPage(\''.$child['name1'].'\')">' . $child['name1'] . '</a> ' . $child['deck'] . ' ';
+                        $content_main .= '<a class="section-title" onclick="requestPage(\''.$child['url'].'\')">' . $child['name1'] . '</a> ' . $child['deck'] . ' ';
+                    $urls_to_names[$child['url']] = $child['name1'];
                 }
                 else if($child['url'] == 'intro')
                     $content_intro .= $child['deck'] . '</div> ';
@@ -47,10 +49,13 @@
         $temp = $oo->urls_to_ids( array($lang) );
         $children = $oo->children( end($temp) );
         $menu_items = array();
+        $urls_to_names = array();
         foreach($children as $child)
         {
-            if(substr($child['name1'], 0, 1) !== '.' && substr($child['name1'], 0, 1) !== '_')
+            if(substr($child['name1'], 0, 1) !== '.' && substr($child['name1'], 0, 1) !== '_'){
                 $menu_items[] = $child;
+                $urls_to_names[$child['url']] = $child['name1'];
+            }
         }
 
         $temp = $oo->urls_to_ids(array('home'));
@@ -95,7 +100,7 @@
             }
             else
             {
-                ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['name1']; ?>')"><?= $item['name1']; ?></a></div><?
+                ?><div class="menu-item sans"><a onclick="requestPage('<?= $item['url']; ?>')"><?= $item['name1']; ?></a></div><?
             }
         } ?>
     </div>
@@ -120,6 +125,8 @@
     var showDistance = <?= json_encode($showDistance); ?>;
     var distance = false;
     var string_outro = '';
+    var urls_to_names = <?= json_encode($urls_to_names, true); ?>;
+    console.log
 </script>
 <script src="/static/js/weather.js"></script>
 <script>
@@ -233,7 +240,7 @@
                                     var data = JSON.parse(request_page.responseText);
                                     sContent_container.classList.add('transition');
                                     sContent_container.innerHTML = data['body'];
-                                    window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page},"", pathUrl);
+                                    window.history.pushState({"html":request_page.responseText, "lang":lang, "page":page },"", pathUrl);
                                     setTimeout(function(){
                                         sContent_container.classList.remove('transition');
                                         if(page == 'home'){
@@ -336,7 +343,7 @@
             page = e.state.page;
             if(page !== 'home'){
                 body.classList.add('subpage');
-                typewriter(page, sWeather, typingInterval);
+                typewriter(urls_to_names[page], sWeather, typingInterval);
             }
             else{
                 body.classList.remove('subpage');
