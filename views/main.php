@@ -224,6 +224,7 @@
     // request page
     var requestPage_url = '/static/php/requestPage.php';
     function requestPage(target="home", hash=''){
+        console.log('requestPage');
         if (window.XMLHttpRequest || bActiveX) { // IE7+, FF and Chrome
             if(body.getAttribute('loadingstage') == 3)
             {
@@ -237,6 +238,7 @@
                             try{
                                 if(request_page.responseText)
                                 {
+                                    console.log('got response');
                                     var data = JSON.parse(request_page.responseText);
                                     sContent_container.classList.add('transition');
                                     sContent_container.innerHTML = data['body'];
@@ -256,9 +258,14 @@
                                             body.classList.add('subpage');
                                         }
                                         body.classList.remove('viewing-menu')
-                                        if(hash !== '')
-                                            location.hash = "#" + hash;
-                                        window.scrollTo(0, 0);
+                                        if(hash !== ''){
+                                            console.log(hash);
+                                            // location.hash = "#" + hash;
+                                            let scrollTop = document.getElementById(hash).offsetTop;
+                                            console.log(scrollTop);
+                                            window.scrollTo(0, scrollTop);
+                                        }
+                                        else window.scrollTo(0, 0);
                                     }, 0);
                                 }
                             }
